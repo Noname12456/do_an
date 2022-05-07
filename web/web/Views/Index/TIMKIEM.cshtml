@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "TIEMKIEM";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@using web.Models;
+<div class="row" style="margin-top: 20px">
+    <div class="col-xl-3 col-md-3" style="border-right: 1px inset black">
+    </div>
+    <div class="col-xl-9 col-md-9">
+        <h1>Tìm Kiếm Sản Phẩm</h1>
+        <div class="row" style="margin-top: 50px">
+            @{
+                SANPHAM sp = new SANPHAM();
+                var menu = sp.getData(Session["Tk"].ToString());
+                int st = 0;
+                if (menu != null)
+                {
+                    SANPHAM SP = new SANPHAM();
+                    var sanPham = SP.getDataSP("LCDH004", 6);
+                    foreach (var item in sanPham)
+                    {
+                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+<div class="col-xl-3 col-sm-4 col-6">
+                                <div class="card">
+                                    <a href="@link">
+                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                            <div class="text-center">
+                                                @{
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                        var sanPhamHinh = SPH.getData(@item.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                        {
+                            var hinh = "/IMG/" + itemHinh.HINH;
+<img class="card-img-top" src="@hinh"/>
+                        }
+                                                }
+
+                    </div>
+                                            <p>@item.TENSP</p>
+                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                            <div style="margin-right: 10px">
+                                                @using (Html.BeginForm("TIMKIEM", "Index", FormMethod.Post, new { @class = "" }))
+                                                {
+<button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                        Thêm giỏ hàng
+                                                    </button>
+                                                }
+                    </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                    }
+                }
+                if (st == 0)
+                {
+                <h3 style="margin-left: 20px">Sản phẩm @Session["Tk"].ToString() không tìm thấy</h3>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+

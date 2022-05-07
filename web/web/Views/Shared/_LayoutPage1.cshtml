@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <style>
+        body {
+            background: #eee;
+        }
+
+        .form-control {
+            border-radius: 0;
+            box-shadow: none;
+            border-color: #d2d6de;
+        }
+
+        .select2-hidden-accessible {
+            border: 0 !important;
+            clip: rect(0 0 0 0) !important;
+            height: 1px !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            padding: 0 !important;
+            position: absolute !important;
+            width: 1px !important;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+        .select2-container--default .select2-selection--single,
+        .select2-selection .select2-selection--single {
+            border: 1px solid #d2d6de;
+            border-radius: 0;
+            padding: 6px 12px;
+            height: 34px;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+        }
+
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 28px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+            .select2-container .select2-selection--single .select2-selection__rendered {
+                padding-right: 10px;
+            }
+
+            .select2-container .select2-selection--single .select2-selection__rendered {
+                padding-left: 0;
+                padding-right: 0;
+                height: auto;
+                margin-top: -3px;
+            }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 28px;
+        }
+
+        .select2-container--default .select2-selection--single,
+        .select2-selection .select2-selection--single {
+            border: 1px solid #d2d6de;
+            border-radius: 0 !important;
+            padding: 6px 12px;
+            height: 40px !important;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: 26px;
+                position: absolute;
+                top: 6px !important;
+                right: 1px;
+                width: 20px;
+            }
+    </style>
+</head>
+@using System.IO;
+@using web.Models;
+<body>
+    <div class="">
+        <a href="/Admin/DANGXUAT">Đăng xuất @Session["maad"]</a>
+        <div class="row">
+            <div class="col-xl-2">
+                <ul class="list-group">
+                    @{
+                        LOAIQUYENOFNHANVIEN quyen = new LOAIQUYENOFNHANVIEN();
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_sach") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/SACH">SÁCH</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dung_cu") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/DUNGCU">DỤNG CỤ</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_loai_mh") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/LOAIMH">LOẠI MẶT HÀNG</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_cd") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/CHUDE">CHỦ ĐỀ</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_lcd") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/LOAICD">LOẠI CHỦ ĐỀ</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_km") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/KHUYENMAI">KHUYẾN MÃI</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dh") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/DONHANG">ĐƠN HÀNG</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_tg") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/TACGIA">TÁC GIẢ</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nv") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/NHANVIEN">NHÂN VIÊN</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nxb") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/NHAXUATBAN">NHÀ XUẤT BẢN</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_ncc") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/NHACUNGCAP">NHÀ CUNG CẤP</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nccn") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/NHACUNGCAPNHAP">NHÀ CUNG CẤP NHẬP</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_cn") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/CHINHANH">CHI NHÁNH</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_pn") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/PHIEUNHAP">PHIẾU NHẬP</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dspn") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/DSPHIEUNHAP">DANH SÁCH PHIẾU NHẬP</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_quyen") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/QUYEN">QUYỀN</a></li>
+                        }
+                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_lquyen") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                             <li class="list-group-item"><a href="/Admin/LOAIQUYEN">LOẠI QUYỀN</a></li>
+                        }
+                        }
+                </ul>
+            </div>
+            <div class="col-xl-9">
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="~/Scripts/jquery.min.js" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#img_0').hide();
+        $('#imgsua_0').hide();
+        $('.select2').select2();
+        $('#example').DataTable();
+        document.getElementById('ngaynhap').valueAsDate = new Date();
+        document.getElementById('ngayhd').valueAsDate = new Date();
+        document.getElementById('ngaynhan').valueAsDate = new Date();
+    });
+    function date(date) {
+        var datecat = date.split("/");
+        return datecat[2] + '-' + datecat[1] + '-' + datecat[0];
+    }
+    function luuSp(id) {
+        var listSpCo = $('.chkyes');
+        var listCo = [];
+        $.each(listSpCo, function (i, item) {
+            if (item.checked == false) {
+                listCo.push(
+                   $(item).data('id')
+                );
+            }
+        });
+        var listSpBo = $('.chkbo');
+        var listBo = [];
+        $.each(listSpBo, function (i, item) {
+            if (item.checked == true) {
+                listBo.push(
+                    $(item).data('id')
+                );
+            }
+        });
+        var listSpThem = $('.chkthem');
+        var listThem = [];
+        $.each(listSpThem, function (i, item) {
+            if (item.checked == true) {
+                listThem.push(
+                    $(item).data('id')
+                );
+            }
+        });
+        var dataList = [];
+        var data = {
+            listThem: listThem,
+            listBo: listBo,
+            listCo: listCo,
+            id: id,
+        };
+        dataList.push(data);
+        console.log(listCo);
+        if (listCo.length == 0 && listThem.length == 0 && listBo.length == 0) {
+            return;
+        }
+        $.ajax({
+            url: '/Admin/CNSPCHINHANH',
+            data: { cartModel: JSON.stringify(dataList) },
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/Admin/SPCHINHANH2/" + id;
+                }
+            }
+        })
+    }
+    function luu(id) {
+        var listSpCo = $('.chkyes');
+        var listCo = [];
+        $.each(listSpCo, function (i, item) {
+            if (item.checked == false) {
+                listCo.push(
+                   $(item).data('id')
+                );
+            }
+        });
+        var listSpBo = $('.chkbo');
+        var listBo = [];
+        $.each(listSpBo, function (i, item) {
+            if (item.checked == true) {
+                listBo.push(
+                    $(item).data('id')
+                );
+            }
+        });
+        var listSpThem = $('.chkthem');
+        var listThem = [];
+        $.each(listSpThem, function (i, item) {
+            if (item.checked == true) {
+                listThem.push(
+                    $(item).data('id')
+                );
+            }
+        });
+        var dataList = [];
+        var data = {
+            listThem: listThem,
+            listBo: listBo,
+            listCo: listCo,
+            id: id,
+        };
+        dataList.push(data);
+        if (listCo.length == 0 && listThem.length == 0 && listBo.length == 0) {
+            return;
+        }
+        $.ajax({
+            url: '/Admin/CNLOAIQUYENOFQUYEN',
+            data: { cartModel: JSON.stringify(dataList) },
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/Admin/LOAIQUYENOFQUYEN/"+id;
+                }
+            }
+        })
+    }
+    function luuquyennv(id,manv) {
+        var listSpCo = $('.chkyes');
+        var listCo = [];
+        $.each(listSpCo, function (i, item) {
+            if (item.checked == false) {
+                listCo.push(
+                   $(item).data('id')
+                );
+            }
+        });
+        var listSpBo = $('.chkbo');
+        var listBo = [];
+        $.each(listSpBo, function (i, item) {
+            if (item.checked == true) {
+                listBo.push(
+                    $(item).data('id')
+                );
+            }
+        });
+        var listSpThem = $('.chkthem');
+        var listThem = [];
+        $.each(listSpThem, function (i, item) {
+            if (item.checked == true) {
+                listThem.push(
+                    $(item).data('id')
+                );
+            }
+        });
+        var dataList = [];
+        var data = {
+            listThem: listThem,
+            listBo: listBo,
+            listCo: listCo,
+            id: manv,
+        };
+        dataList.push(data);
+        if (listCo.length == 0 && listThem.length == 0 && listBo.length == 0) {
+            return;
+        }
+        $.ajax({
+            url: '/Admin/CNLOAIQUYENOFNV',
+            data: { cartModel: JSON.stringify(dataList) },
+            dataType: 'json',
+            type: 'POST',
+            success: function (res) {
+                if (res.status == true) {
+                    window.location.href = "/Admin/LOAIQUYENOFNHANVIEN/" + id + "?manv=" + manv;
+                }
+            }
+        })
+    }
+</script>
+<script src="~/Scripts/js/SACH.js" type="text/javascript"></script>
+<script src="~/Scripts/js/DUNGCU.js" type="text/javascript"></script>
+<script src="~/Scripts/js/CHUDE.js" type="text/javascript"></script>
+<script src="~/Scripts/js/CHINHANH.js" type="text/javascript"></script>
+<script src="~/Scripts/js/KHUYENMAI.js" type="text/javascript"></script>
+<script src="~/Scripts/js/LOAICHUDE.js" type="text/javascript"></script>
+<script src="~/Scripts/js/MATHANG.js" type="text/javascript"></script>
+<script src="~/Scripts/js/NCC.js" type="text/javascript"></script>
+<script src="~/Scripts/js/NCCNHAP.js" type="text/javascript"></script>
+<script src="~/Scripts/js/NXB.js" type="text/javascript"></script>
+<script src="~/Scripts/js/NHANVIEN.js" type="text/javascript"></script>
+<script src="~/Scripts/js/TACGIA.js" type="text/javascript"></script>
+<script src="~/Scripts/js/PHIEUNHAP.js" type="text/javascript"></script>
+<script src="~/Scripts/js/QUYEN.js" type="text/javascript"></script>
+<script src="~/Scripts/js/LOAIQUYEN.js" type="text/javascript"></script>
+</html>

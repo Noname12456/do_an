@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "CTHOADON";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using web.Models;
+@{ LOAIQUYENOFNHANVIEN quyen = new LOAIQUYENOFNHANVIEN();
+   using (Html.BeginForm("CTHOADON", "Admin", FormMethod.Post, new { @class = "" }))
+   {
+       CHINHANH cn = new CHINHANH();
+       var trangthai = "";
+       var idtt = "";
+       var id = "";
+       var mneu2 = Session["CT"] as List<DONHANG>;
+       if (mneu2 != null)
+       {
+           foreach (var item in mneu2)
+           {
+               idtt = item.trangthai;
+               id = item.ID;
+           }
+       }
+    <h1>@{
+       if (int.Parse(idtt) == 0)
+       {
+           trangthai = "Phiếu mới tạo";
+       }
+       else if (int.Parse(idtt) == 4)
+       {
+           trangthai = "Phiếu muốn hủy";
+       }
+       else if (int.Parse(idtt) == 2)
+       {
+           trangthai = "Phiếu đã xác nhận";
+       }
+       else if (int.Parse(idtt) == 3)
+       {
+           trangthai = "Phiếu đang giao";
+       }
+       else if (int.Parse(idtt) == 4)
+       {
+           trangthai = "Phiếu đã hủy";
+       }
+       else if (int.Parse(idtt) == 5)
+       {
+           trangthai = "Phiếu giao hàng thành công";
+       }
+       else if (int.Parse(idtt) == 6)
+       {
+           trangthai = "Không nhận hàng";
+       }
+    }</h1>
+    <div class="col-xl-1">
+        CHI NHÁNH
+    </div>
+    @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "duyet_don") == 1 || Session["maad"].ToString().Equals("admin"))
+    {
+        <div class="col-xl-2" style="margin-bottom: 5px">
+            <select class="select2 w-100 form-control" id="cn" name="cn">
+                @{
+        var menu2 = cn.getData2();
+        foreach (var item in menu2)
+        {
+                    <option value="@item.ID">@item.Ten</option>   
+        }
+                }
+            </select>
+        </div>
+        if (int.Parse(idtt) == 0)
+        {
+        <button type="submit" class="btn btn-outline-danger" name="xn" value="@id">Xác nhận phiếu</button>
+        <button type="submit" class="btn btn-outline-danger" name="huy" value="@id">Hủy phiếu</button>
+        }
+        if (int.Parse(idtt) == 2)
+        {
+        <button type="submit" class="btn btn-outline-danger" name="gh" value="@id">Xác nhận giao hàng</button>
+        <button type="submit" class="btn btn-outline-danger" name="huy" value="@id">Hủy phiếu</button>
+        }
+        if (int.Parse(idtt) == 3)
+        {
+        <button type="submit" class="btn btn-outline-danger" name="nh" value="@id">Xác nhận đã nhận hàng</button>
+        <button type="submit" class="btn btn-outline-danger" name="knh" value="@id">Xác nhận khách không nhận hàng</button>
+        }
+        if (int.Parse(idtt) == 4)
+        {
+        <button type="submit" class="btn btn-outline-danger" name="xnhuy" value="@id">xác nhận hủy phiếu</button>
+        }
+    }
+   }
+    <table class="table">
+        <tbody>
+            @{
+                var tong2 = 0;
+                if (ViewBag.TT != null)
+                {
+                    tong2 = int.Parse(ViewBag.TT);
+                }
+                SANPHAM sp = new SANPHAM();
+                var tong = 0;
+                var mneu = Session["CT"] as List<DONHANG>;
+                if (mneu != null)
+                {
+                    foreach (var item in mneu)
+                    {
+                        var menu = sp.getDataCT(item.masp);
+                        foreach (var item2 in menu)
+                        {
+                            var thanhtien = int.Parse(item2.GIABAN) * int.Parse(item.sl);
+                            tong += thanhtien;
+                <tr>
+                    @{ 
+                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                            var sanPhamHinh = SPH.getData(@item2.MASP);
+                            foreach (var itemHinh in sanPhamHinh)
+                            {
+                                var hinh = "/IMG/" + itemHinh.HINH;
+                        <th scope="row">
+                            <img src="@hinh" style="width: 80px; height: 80px" />
+                        </th>
+                            }  
+                    }
+                    <td>@item2.MASP</td>
+                    <td>@item2.TENSP</td>
+                    <td>@int.Parse(item2.GIABAN).ToString("N0")</td>
+                    <td>
+                        @item.sl
+                    </td>
+                    <td>
+                        @thanhtien.ToString("N0") VND
+                    </td>
+                </tr>
+                        }
+
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+<strong style="color: red">@Session["erro"]</strong>
+

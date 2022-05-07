@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "CTHOADON";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@using web.Models;
+@{
+    var trangthai = "";
+    var id = "";
+    var mneu2 = Session["CT"] as List<DONHANG>;
+    if (mneu2 != null)
+    {
+        foreach (var item in mneu2)
+        {
+            trangthai = item.trangthai;
+            id = item.ID;
+        }
+    }
+    using (Html.BeginForm("CTHOADON", "HOADON", FormMethod.Post, new { @class = "" }))
+    {
+    <h1>@{
+        if (int.Parse(trangthai) == 0) { 
+            <h1>Phiếu mới tạo</h1>
+        }  
+        if (int.Parse(trangthai) == 4) { 
+            <h1>Phiếu muốn hủy</h1>
+        }  
+        }</h1>
+        if (int.Parse(trangthai) == 0 || int.Parse(trangthai) == 1 || int.Parse(trangthai) == 2)
+        {
+            <button type="submit" class="btn btn-outline-danger" name="huy" value="@id">Hủy phiếu</button>
+        }
+    }
+    
+    <table class="table">
+        <tbody>
+            @{
+                var tong2 = 0;
+                if (ViewBag.TT != null)
+                {
+                    tong2 = int.Parse(ViewBag.TT);
+                }
+                SANPHAM sp = new SANPHAM();
+                var tong = 0;
+                var mneu = Session["CT"] as List<DONHANG>;
+                if (mneu != null)
+                {
+                    foreach (var item in mneu)
+                    {
+                        var menu = sp.getDataCT(item.masp);
+                        foreach (var item2 in menu)
+                        {
+                            var thanhtien = int.Parse(item2.GIABAN) * int.Parse(item.sl);
+                            tong += thanhtien;
+                <tr>
+                    @{ 
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                       var sanPhamHinh = SPH.getData(@item2.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                                    {
+                                        var hinh = "/IMG/" + itemHinh.HINH;
+                                <th scope="row">
+                                    <img src="@hinh" style="width: 80px; height: 80px" />
+                                </th>
+                                    }  
+                      }
+                    <td>@item2.MASP</td>
+                    <td>@item2.TENSP</td>
+                    <td>@item2.GIABAN</td>
+                    <td>
+                        @item.sl
+                    </td>
+                    <td>
+                        @thanhtien.ToString("NO") VND
+                    </td>
+                </tr>
+                        }
+
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+

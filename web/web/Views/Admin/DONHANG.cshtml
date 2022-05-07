@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "SACH";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using web.Models;
+<style>
+    .select2 {
+        width: 75% !important;
+    }
+</style>
+@{
+    LOAICHUDE lcd = new LOAICHUDE();
+    NHACC ncc = new NHACC();
+    NXB nxb = new NXB();
+    TACGIA tg = new TACGIA();
+}
+<table id="example" class="table" style="margin-top: 15px">
+    <thead>
+        <tr>
+            <td>STT
+            </td>
+            <td>Mã HĐ
+            </td>
+            <td>Ngày hóa đơn
+            </td>
+            <td>Địa chỉ giao
+            </td>
+            <td>SĐT
+            </td>
+            <td>Thành phố
+            </td>
+            <td>Quận huyện
+            </td>
+            <td>Email
+            </td>
+            <td>Mã khách hàng
+            </td>
+            <td>Họ tên
+            </td>
+            <td>Mã khuyến mãi
+            </td>
+            <td>Trạng thái
+            </td>
+            <td>Thành tiền
+            </td>
+            <td>Tiền giảm
+            </td>
+            <td>Tổng tiền
+            </td>
+            <td>Thao tác</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            DONHANG sp = new DONHANG();
+            var menuSp = sp.getDataAd();
+            var i = 1;
+            foreach (var item in menuSp)
+            {
+            <tr>
+                <td>i
+                </td>
+                <td>@item.ID
+                </td>
+                <td>@item.ngaylap
+                </td>
+                <td>@item.dc
+                </td>
+                <td>@item.sdt
+                </td>
+                <td>@item.tinh
+                </td>
+                <td>@item.quan
+                </td>
+                <td>@item.email
+                </td>
+                <td>@item.makh
+                </td>
+                <td>@item.Ten
+                </td>
+                <td>@item.makm
+                </td>
+                <td>
+                    @{
+                var trangthai = "";        
+                if (int.Parse(item.trangthai) == 0)
+                {
+                    trangthai = "Phiếu mới tạo";
+                }
+                else if (int.Parse(item.trangthai) == 4)
+                {
+                    trangthai = "Phiếu muốn hủy";
+                }
+                else if (int.Parse(item.trangthai) == 2)
+                {
+                    trangthai = "Phiếu đã xác nhận";
+                }
+                else if (int.Parse(item.trangthai) == 3)
+                {
+                    trangthai = "Phiếu đang giao";
+                }
+                else if (int.Parse(item.trangthai) == 4)
+                {
+                    trangthai = "Phiếu đã hủy";
+                }
+                else if (int.Parse(item.trangthai) == 5)
+                {
+                    trangthai = "Phiếu giao hàng thành công";
+                }
+                else if (int.Parse(item.trangthai) == 6)
+                {
+                    trangthai = "Không nhận hàng";
+                }
+                    }
+                    <p>@trangthai</p>
+                </td>
+                <td>@item.tt
+                </td>
+                <td>@item.tiengiam
+                </td>
+                <td>@{
+                var thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);}
+                    <p>@thanhtien</p>
+                </td>
+                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "Admin", new { @id = item.ID }, new { @class = "dropdown-item", @style = "" })</td>
+            </tr>
+                i++;
+            }
+        }
+    </tbody>
+</table>

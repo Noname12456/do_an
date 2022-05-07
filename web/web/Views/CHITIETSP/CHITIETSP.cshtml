@@ -1,0 +1,421 @@
+﻿@{
+    ViewBag.Title = "CHITIETSP";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@using web.Models;
+@{
+    var mancc = "";
+    var manxb = "";
+    var sotrang = "";
+    var xuatxu = "";
+    var THUONGHIEU = "";
+    var NGONNGU = "";
+    var KICHTHUOC = "";
+    var MOTA = "";
+    var DOTUOI = "";
+    var TRONGLUONG = "";
+    var sl = "";
+    var ten = "";
+    var gia = "";
+    var id = "";
+
+    SANPHAM sp = new SANPHAM();
+    var menu = Session["CT"] as List<SANPHAM>;
+    foreach (var item in menu)
+    {
+        mancc = item.MANCC;
+        manxb = item.MANXB;
+        sotrang = item.SOTRANG;
+        xuatxu = item.XUATXU;
+        THUONGHIEU = item.THUONGHIEU;
+        NGONNGU = item.NGONNGU;
+        KICHTHUOC = item.KICHTHUOC;
+        MOTA = item.MOTA;
+        DOTUOI = item.DOTUOI;
+        TRONGLUONG = item.TRONGLUONG;
+        sl = item.SLTON;
+        ten = item.TENSP;
+        gia = item.GIABAN;
+        id = item.MASP;
+    }
+}
+<div class="row" style="margin-top: 20px">
+    <div class="col-xl-6 col-md-8 col-lg-8">
+        <div class="row">
+            <div class="col-xl-8 col-md-9 col-sm-9 col-xs-12 col-lg-7">
+                @{
+                    SANPHAMHINHANH SPH2 = new SANPHAMHINHANH();
+                    var sanPhamHinh2 = SPH2.getData(id);
+                    foreach (var itemHinh in sanPhamHinh2)
+                    {
+                        var hinh = "/IMG/" + itemHinh.HINH;
+                    <img class="card-img-top" src="@hinh" style="width:100%;height:400px" id="hinhc"/>
+                    }
+                }
+            </div>
+            <div class="col-xl-4 col-md-2 col-sm-1 col-xs-12 col-lg-2">
+                @{
+                    var sanPhamHinh3 = SPH2.getData2(id);
+                    var vt = 0;
+                    foreach (var itemHinh in sanPhamHinh3)
+                    {
+                        var hinh = "/IMG/" + itemHinh.HINH;
+                        var btn = "btn";
+                        var hinhItem = "hinhItem" + vt;
+                    <button style="border: none; background: none" class="@btn" type="button" index="@vt">
+                        <img class="card-img-top" id="@hinhItem" src="@hinh" style="width:80px;height:80px;margin-top:5px"/>
+                    </button><br />
+                        vt++;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-md-3 col-lg-2">
+        <h1>@ten</h1>
+        <p>@int.Parse(gia).ToString("N0") VND</p>
+        @using (Html.BeginForm("CHITIETSP", "CHITIETSP", FormMethod.Post, new { @class = "" }))
+        {
+            if (sl.Equals("0"))
+            {
+            <p>Sản phẩm đã hết vui lòng liên hệ shop để được tư vấn thêm</p>
+            }
+            else
+            {
+            <div class="input-group number-spinner" style="width: 180px">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" data-dir="dwn" style="height: 38px; width: 38px" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                        </svg>
+                    </button>
+                </span>
+                <input type="text" class="form-control text-center" value="1" min="1" max="10" name="sl" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" data-dir="up" style="height: 38px; width: 38px" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                        </svg>
+                    </button>
+                </span>
+            </div> 
+            <div class="row" style="margin-top: 20px">
+                <div class="col-xl-5 col-md-12 col-lg-12 col-xs-12 col-7">
+                    <button type="submit" class="btn btn-outline-warning btn-rounded waves-effect" name="them" value=@id>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16" style="margin-top: -8px">
+                            <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                        </svg>THÊM VÀO GIỎ HÀNG
+                    </button>
+                </div>
+                <div class="col-xl-4 col-3">
+                    <button type="submit" class="btn btn-outline-danger btn-rounded waves-effect" name="mua" value=@id>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16" style="margin-top: -8px">
+                            <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                        </svg>MUA NGAY
+                    </button>
+                </div>
+            </div>
+            }
+        }
+        <p style="margin-top: 20px; font-size: 18px;">Ưu đãi dành riêng cho khách hàng đặt trước Online:</p>
+        <p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+            </svg>Giữ hàng tại Shop cho khách đặt hàng online
+        </p>
+        <p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+            </svg>
+            Giao hàng toàn quốc
+        </p>
+        <p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+            </svg>Tư vấn miễn phí 24/7
+        </p>
+        <p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+            </svg>
+            Bảo hành nhanh chóng
+        </p>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px">
+    <div class="col-xl-3 col-lg-3 col-md-4">
+        <p class="list-group-item">SẢN PHẨM MUA NHIỀU</p>
+        <div id="multi-item-example" class="carousel slide  " data-ride="carousel">
+            <div class="carousel-inner" role="listbox" style="height: 100%">
+                <div class="carousel-item active">
+                    @{
+                        var menu1 = sp.getDataMuaN1();
+                        if (menu1 != null)
+                        {
+                            foreach (var item in menu1)
+                            {
+                                var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                        <div class="row">
+                            <div class="col-xl-5 col-4 col-md-6">
+                                <div class="hinh" style="width: 95px">
+                                    @{
+                                {
+                                    SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                    var sanPhamHinh = SPH.getData(@item.MASP);
+                                    foreach (var itemHinh in sanPhamHinh)
+                                    {
+                                        var hinh = "/IMG/" + itemHinh.HINH;
+                                        <img class="card-img-top" src="@hinh" style="width: 60px; height: 60px" name="hinhc"/>
+                                    }
+                                }
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-7 col-md-4">
+                                <p style="width: 140px; font-size: 12px">@item.TENSP</p>
+                                <p>@int.Parse(item.GIABAN).ToString("N0") VND</p>
+                            </div>
+                        </div>
+                            }
+                        }
+                    }
+                </div>
+                @{
+                    var menu2 = sp.getDataMuaN2();
+                    if (menu2 != null)
+                    {
+                    <div class="carousel-item">
+                        @{ foreach (var item in menu2)
+                           {
+                               var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                            <div class="row">
+                                <div class="col-xl-5 col-4 col-md-6">
+                                    <div class="hinh" style="width: 95px">
+                                        @{
+                               {
+                                   SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                   var sanPhamHinh = SPH.getData(@item.MASP);
+                                   foreach (var itemHinh in sanPhamHinh)
+                                   {
+                                       var hinh = "/IMG/" + itemHinh.HINH;
+                                            <img class="card-img-top" src="@hinh" style="width: 80px; height: 80px"/>
+                                   }
+                               }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-7 col-md-4">
+                                    <p style="width: 140px; font-size: 12px">@item.TENSP</p>
+                                    <p>@int.Parse(item.GIABAN).ToString("N0") VND</p>
+                                </div>
+                            </div>
+                           }
+                        }
+                    </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+            </div>
+            <div class="col-6 text-right">
+                <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-lg-9 col-md-8">
+        <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Thông Tin Sản Phẩm</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Mô tả</a>
+            </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Mã hàng</th>
+                            <td>@id</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tên Nhà Cung Cấp</th>
+                            <td>
+                                @{
+                                    NHACC ncc = new NHACC();
+                                    var menuncc = ncc.getData(mancc);
+                                    var namencc = "";
+                                    foreach (var item in menuncc)
+                                    {
+                                        namencc = @item.Ten;
+                                    }
+                                }
+                                @namencc
+                            </td>
+                        </tr>
+                        @{
+                            TACGIA tg = new TACGIA();
+                            var menutg = tg.getData(id);
+                            if (menutg != null)
+                            {
+                            <tr>
+                                <th scope="row">Tác giả</th>
+
+                                <td colspan="2">
+                                    <ul>
+
+                                        @{foreach (var item in menutg)
+                                          {
+                                            <li>@item.Ten</li>
+                                          }
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                            }
+                        }
+                        @{
+                            NXB NXB = new NXB();
+                            var menuNXB = NXB.getData(manxb);
+                            if (menuNXB != null)
+                            {
+                            <tr>
+                                <th scope="row">NXB</th>
+
+                                <td colspan="2">
+                                    <ul>
+
+                                        @{foreach (var item in menuNXB)
+                                          {
+                                            <li>@item.Ten</li>
+                                          }
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                            }
+                        }
+                        @{
+                            <tr>
+                                <th scope="row">Trọng lượng</th>
+                                <td colspan="2">@TRONGLUONG</td>
+                            </tr>
+                            if (!KICHTHUOC.Equals(""))
+                            {
+                            <tr>
+                                <th scope="row">Kích Thước Bao Bì</th>
+                                <td colspan="2">@KICHTHUOC</td>
+                            </tr>
+                            }
+                            if (!sotrang.Equals(""))
+                            {
+                            <tr>
+                                <th scope="row">Số trang</th>
+                                <td colspan="2">@sotrang</td>
+                            </tr>
+                            }
+                        }
+
+                        <tr>
+                            <th scope="row">Sản phẩm hiển thị trong</th>
+                            <td colspan="2">@{
+                                <ul>
+                                    @{SANPHAMCD spcd = new SANPHAMCD();
+                                      var menuspcd = spcd.getData(id);
+                                      var link2 = "";
+                                      var listLoaiCD = "";
+                                      var i = 0;
+                                      foreach (var item in menuspcd)
+                                      {
+                                          if (i == 0)
+                                          {
+                                              listLoaiCD += "'" + item.ID + "'";
+                                          }
+                                          else if (menuspcd.Count() - 1 == i)
+                                          {
+                                              listLoaiCD += "," + "'" + item.ID + "'";
+                                          }
+                                          else
+                                          {
+                                              listLoaiCD += "," + "'" + item.ID + "'";
+                                          }
+                                          i++;
+                                          link2 = "/DSSP/DSSPLCD/" + @item.ID;
+                                        <li><a href="@link2">@item.Ten</a></li>
+                                      }
+                                    }
+                                </ul>
+                            }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            </div>
+        </div>
+    </div>
+</div>
+<h1>SẢN PHẨM LIÊN QUAN</h1>
+<div class="row">
+    @{
+        SANPHAM SP = new SANPHAM();
+        var sanPham = SP.getDataMuaLQ1(listLoaiCD);
+        foreach (var item in sanPham)
+        {
+            var link = "CHITIETSP/CHITIETSP/" + item.MASP;
+        <div class="col-xl-2 col-sm-4 col-6">
+            <div class="card">
+                <a href="@link">
+                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
+                        <div class="text-center">
+                            @{
+            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+            var sanPhamHinh = SPH.getData(@item.MASP);
+            foreach (var itemHinh in sanPhamHinh)
+            {
+                var hinh = "/IMG/" + itemHinh.HINH;
+                                <img class="card-img-top" src="@hinh" style="height:205px"/>
+            }
+                            }
+
+                        </div>
+                        <p>@item.TENSP</p>
+                        <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        }
+    }
+
+</div>
+<script type='text/javascript'>
+    $(document).on('click', '.number-spinner button', function () {
+        var btn = $(this),
+            oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+            newVal = 0;
+
+        if (btn.attr('data-dir') == 'up') {
+            newVal = parseInt(oldValue) + 1;
+        } else {
+            if (oldValue > 1) {
+                newVal = parseInt(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        btn.closest('.number-spinner').find('input').val(newVal);
+    });
+    var btn = '.btn';
+    $(btn).off('click').on('click', function () {
+        var index = $(this).attr('index');
+        var imgItem = '#hinhItem' + index;
+        var images = $(imgItem).attr('src');
+        $('#hinhc').attr('src', images);
+    });
+</script>
