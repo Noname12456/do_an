@@ -309,17 +309,33 @@ namespace web.Models
 
             return true;
         }
+        public bool check(string cn, List<DONHANG> dataList)
+        {
+            int dr = 0;
+            SqlConnection con = new SqlConnection(conf);
+            con.Open();
+            SPCHINHANH CN = new SPCHINHANH();
+            foreach (var item in dataList)
+            {
+                var data = CN.getData(item.masp, cn, item.sl);
+                if (data <= 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public void update6(string ma)
         {
             int dr = 0;
             SqlConnection con = new SqlConnection(conf);
             con.Open();
-            SqlCommand cmd = new SqlCommand("update DONHANG set TRANGTHAI= 4 where madh='" + ma + "'", con);
+            SqlCommand cmd = new SqlCommand("update DONHANG set TRANGTHAI= 7 where madh='" + ma + "'", con);
             cmd.CommandType = CommandType.Text;
             dr = cmd.ExecuteNonQuery();
             con.Close();
         }
-        public void update7(string ma)
+        public void update7(string ma,string macn)
         {
             int dr = 0;
             SqlConnection con = new SqlConnection(conf);
@@ -327,14 +343,27 @@ namespace web.Models
             SqlCommand cmd = new SqlCommand("update DONHANG set TRANGTHAI= 5 where madh='" + ma + "'", con);
             cmd.CommandType = CommandType.Text;
             dr = cmd.ExecuteNonQuery();
+            con.Close();
             var menu = getData2(ma);
+            var dem = 0;
             foreach (var item in menu)
             {
-                SqlCommand cmd1 = new SqlCommand("update Sanpham set SLTON=SLTON-(" + item.sl + ") where masp='" + item.masp + "'", con);
-                cmd1.CommandType = CommandType.Text;
-                dr = cmd1.ExecuteNonQuery();
+                if (item.trangthai.Equals("1") || item.trangthai.Equals("3"))
+                {
+                    dem++;
+                }
             }
-            con.Close();
+            if (dem != 0)
+            {
+                foreach (var item in menu)
+                {
+                    con.Open();
+                    SqlCommand cmd1 = new SqlCommand("update SanphamCN set SLTON=SLTON+(" + item.sl + ") where masp='" + item.masp + "' and macn = '" + macn + "'", con);
+                    cmd1.CommandType = CommandType.Text;
+                    dr = cmd1.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
         }
         public void update8(string ma, string cn, List<DONHANG> dataList)
         {

@@ -36,7 +36,7 @@
        {
            trangthai = "Phiếu đang giao";
        }
-       else if (int.Parse(idtt) == 4)
+       else if (int.Parse(idtt) == 7)
        {
            trangthai = "Phiếu đã hủy";
        }
@@ -52,7 +52,7 @@
     <div class="col-xl-1">
         CHI NHÁNH
     </div>
-    @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "duyet_don") == 1 || Session["maad"].ToString().Equals("admin"))
+    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "duyet_don") == 1 || Session["maad"].ToString().Equals("admin"))
     {
         <div class="col-xl-2" style="margin-bottom: 5px">
             <select class="select2 w-100 form-control" id="cn" name="cn">

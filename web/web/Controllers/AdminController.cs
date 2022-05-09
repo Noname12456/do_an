@@ -239,6 +239,14 @@ namespace web.Controllers
             {
                 maad = Session["maad"].ToString(); ;
             }
+            if (!string.IsNullOrEmpty(gh) || !string.IsNullOrEmpty(xn))
+            {
+                if (hd.check(cn, Session["CT"] as List<DONHANG>) == false)
+                {
+                    Session["erro"] = "Sản phẩm không có trong chi nhánh hoặc không còn tồn kho";
+                    return RedirectToAction("CTHOADON", "Admin");
+                }
+            }
             if (!string.IsNullOrEmpty(xn))
             {
                 hd.update4(xn);
@@ -257,7 +265,7 @@ namespace web.Controllers
             }
             if (!string.IsNullOrEmpty(nh))
             {
-                hd.update7(nh);
+                hd.update7(nh,cn);
             }
             if (!string.IsNullOrEmpty(knh))
             {

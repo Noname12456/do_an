@@ -1,5 +1,5 @@
 C:\Users\ADMIN\Desktop\do_an\web\web\bin\web.dll
 C:\Users\ADMIN\Desktop\do_an\web\web\bin\web.pdb
+C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.csprojResolveAssemblyReference.cache
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.dll
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.pdb
-C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.csprojResolveAssemblyReference.cache
