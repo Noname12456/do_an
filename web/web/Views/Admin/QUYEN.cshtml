@@ -85,7 +85,7 @@
                 <td>
                     @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "phan_loai_quyen") == 1 || Session["maad"].ToString().Equals("admin"))
                     {
-                       Html.ActionLink("Phân loại quyền vào quyền", "LOAIQUYENOFQUYEN", "Admin", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })
+                        Html.ActionLink("Phân loại quyền vào quyền", "LOAIQUYENOFQUYEN", "Admin", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" });
                     }
                     @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "sua_quyen") == 1 || Session["maad"].ToString().Equals("admin"))
                     {

@@ -217,7 +217,7 @@
                 <td>
                     @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "phan_quyen_nv") == 1 || Session["maad"].ToString().Equals("admin"))
                     {
-                       Html.ActionLink("Phân quyền", "LOAIQUYENOFNHANVIEN", "Admin", new { @id = item.quyen.Replace(" ", ""), @manv = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })
+                        Html.ActionLink("Phân quyền", "LOAIQUYENOFNHANVIEN", "Admin", new { @id = item.quyen.Replace(" ", ""), @manv = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" });
                     }
                     @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "xoa_nv") == 1 || Session["maad"].ToString().Equals("admin"))
                     {
