@@ -4,12 +4,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using web.Models;
 namespace web.Models
 {
     public class CHUDE
     {
-        public string conf = "Data Source=LAPTOP-G07FAD75;Initial Catalog=QL_NhaSach;User ID=sa";
+        public string conf = WebConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         public string ID { get; set; }
         public string MALOAI { get; set; }
         public string Ten { get; set; }
