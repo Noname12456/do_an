@@ -1,17 +1,19 @@
 ﻿$('#saveDC').off('click').on('click', function () {
     var formData = new FormData();
     if (formData != undefined) {
-        var row = $('#table tr').length;
+        var row = $('#table2 tr').length;
         var dataImg = [];
-        for (var i = 0; i < row; i++) {
-            var fileUpload = $("#inputGroupFile_" + i)[0].files[0];
+        var list = $('.hinh4');
+        $.each(list, function (i, item) {
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
             if (fileUpload == undefined) {
                 $('#erro').text('Vui lòng chọn ảnh');
                 return;
             }
             dataImg.push(fileUpload.name);
             formData.append('file', fileUpload);
-        }
+        });
     }
     if ($('#ma').val() == '' || $('#ten').val() == '' || $('#mota').val() == '' || $('#giaban').val() == '' || $('#gianhap').val() == '' || $('#kichthuoc').val() == '' || $('#dotuoi').val() == '' || $('#trongluong').val() == '' || $('#thuonghieu').val() == '' || $('#ncc').val() == '' || $('#xuatxu').val() == '' || $('#LOAICD').val() == '') {
         $('#erro').text('Vui lòng nhập đủ thông tin');
@@ -65,17 +67,17 @@ $('#saveSuaDC').off('click').on('click', function () {
     if (formData != undefined) {
         var row = $('#table2 tr').length;
         var dataImg = [];
-        if (row > 0) {
-            for (var i = 0; i < row; i++) {
-                var fileUpload = $("#inputGroupFileSua_" + i)[0].files[0];
-                if (fileUpload == undefined) {
-                    $('#erroSua').text('Vui lòng chọn ảnh');
-                    return;
-                }
-                dataImg.push(fileUpload.name);
-                formData.append('file', fileUpload);
+        var list = $('.hinh5');
+        $.each(list, function (i, item) {
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
+            if (fileUpload == undefined) {
+                $('#erro').text('Vui lòng chọn ảnh');
+                return;
             }
-        }
+            dataImg.push(fileUpload.name);
+            formData.append('file', fileUpload);
+        });
     }
     if ($('#masua').val() == '' || $('#tensua').val() == '' || $('#motasua').val() == '' || $('#giabansua').val() == '' || $('#gianhapsua').val() == '' || $('#kichthuocsua').val() == '' || $('#dotuoisua').val() == '' || $('#trongluongsua').val() == '' || $('#thuonghieusua').val() == '' || $('#nccsua').val() == '' || $('#xuatxusua').val() == '' || $('#LOAICDsua').val() == '') {
         $('#erroSua').text('Vui lòng nhập đủ thông tin');

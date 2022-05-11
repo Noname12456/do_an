@@ -3,15 +3,17 @@
     if (formData != undefined) {
         var row = $('#table tr').length;
         var dataImg = [];
-        for (var i = 0; i < row; i++) {
-            var fileUpload = $("#inputGroupFile_" + i)[0].files[0];
+        var list = $('.hinh4');
+        $.each(list, function (i, item) {
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
             if (fileUpload == undefined) {
                 $('#erro').text('Vui lòng chọn ảnh');
                 return;
             }
             dataImg.push(fileUpload.name);
             formData.append('file', fileUpload);
-        }
+        });
     }
     if ($('#ma').val() == '' || $('#ten').val() == '' || $('#mota').val() == '' || $('#giaban').val() == '' || $('#gianhap').val() == '' || $('#kichthuoc').val() == '' || $('#sotrang').val() == '' || $('#dotuoi').val() == '' || $('#trongluong').val() == '' || $('#thuonghieu').val() == '' || $('#ncc').val() == '' || $('#nxb').val() == '' || $('#xuatxu').val() == '' || $('#ngonngu').val() == '' || $('#tacgia').val() == '' || $('#LOAICD').val() == '') {
         $('#erro').text('Vui lòng nhập đủ thông tin');
@@ -67,14 +69,14 @@
 $('#themImg').off('click').on('click', function () {
     var table = document.getElementById("table");
     var row = $('#table tr').length;
-    var str = '<tr id="row_' + row + '"><td><img src="#" id="img_' + row + '" style="width:120px;height:120px"/></td><td><div class="input-group mb-3"><div class="custom-file"><input type="file" class="custom-file-input hinh4" id="inputGroupFile_' + row + '" name="" onchange="loadImg(this,' + row + ')" ><label class="custom-file-label" for="inputGroupFile_' + row + '">Choose file</label></div></div></td><td><button type="button" class="btn btn-danger" name="them" value="them" onclick="XoaImg(' + row + ')" style="margin-bottom: 17px">Xóa</button></td></tr>';
+    var str = '<tr id="row_' + row + '"><td><img src="#" id="img_' + row + '" style="width:120px;height:120px"/></td><td><div class="input-group mb-3"><div class="custom-file"><input type="file" class="custom-file-input hinh4" id="inputGroupFile_' + row + '" name="" onchange="loadImg(this,' + row + ')" data-id="'+row+'"><label class="custom-file-label" for="inputGroupFile_' + row + '">Choose file</label></div></div></td><td><button type="button" class="btn btn-danger" name="them" value="them" onclick="XoaImg(' + row + ')" style="margin-bottom: 17px">Xóa</button></td></tr>';
     $('#table tbody').append(str);
     $('#img_' + row).hide();
 });
 $('#themImgSua').off('click').on('click', function () {
     var table = document.getElementById("table2");
     var row = $('#table2 tr').length;
-    var str = '<tr id="rowsua_' + row + '"><td><img src="#" id="imgsua_' + row + '" style="width:120px;height:120px"/></td><td><div class="input-group mb-3"><div class="custom-file"><input type="file" class="custom-file-input hinh4" id="inputGroupFileSua_' + row + '" name="" onchange="loadImg(this,' + row + ')" ><label class="custom-file-label" for="inputGroupFile_' + row + '">Choose file</label></div></div></td><td><button type="button" class="btn btn-danger" name="them" value="them" onclick="XoaImgSua(' + row + ')" style="margin-bottom: 17px">Xóa</button></td></tr>';
+    var str = '<tr id="rowsua_' + row + '"><td><img src="#" id="imgsua_' + row + '" style="width:120px;height:120px"/></td><td><div class="input-group mb-3"><div class="custom-file"><input type="file" class="custom-file-input hinh5" id="inputGroupFileSua_' + row + '" name="" onchange="loadImg(this,' + row + ')" data-id="' + row + '"><label class="custom-file-label" for="inputGroupFile_' + row + '">Choose file</label></div></div></td><td><button type="button" class="btn btn-danger" name="them" value="them" onclick="XoaImgSua(' + row + ')" style="margin-bottom: 17px">Xóa</button></td></tr>';
     $('#table2 tbody').append(str);
     $('#imgsua_' + row).hide();
 });
@@ -174,17 +176,17 @@ $('#saveSua').off('click').on('click', function () {
     if (formData != undefined) {
         var row = $('#table2 tr').length;
         var dataImg = [];
-        if (row > 0) {
-            for (var i = 0; i < row; i++) {
-                var fileUpload = $("#inputGroupFileSua_" + i)[0].files[0];
-                if (fileUpload == undefined) {
-                    $('#erroSua').text('Vui lòng chọn ảnh');
-                    return;
-                }
-                dataImg.push(fileUpload.name);
-                formData.append('file', fileUpload);
+        var list = $('.hinh5');
+        $.each(list, function (i, item) {
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
+            var fileUpload = $("#inputGroupFile_" + $(item).data('id'))[0].files[0];
+            if (fileUpload == undefined) {
+                $('#erro').text('Vui lòng chọn ảnh');
+                return;
             }
-        }
+            dataImg.push(fileUpload.name);
+            formData.append('file', fileUpload);
+        });
     }
     if ($('#masua').val() == '' || $('#tensua').val() == '' || $('#motasua').val() == '' || $('#giabansua').val() == '' || $('#gianhapsua').val() == '' || $('#kichthuocsua').val() == '' || $('#sotrangsua').val() == '' || $('#dotuoisua').val() == '' || $('#trongluongsua').val() == '' || $('#thuonghieusua').val() == '' || $('#nccsua').val() == '' || $('#nxbsua').val() == '' || $('#xuatxusua').val() == '' || $('#ngonngusua').val() == '' || $('#tacgiasua').val() == '' || $('#LOAICDsua').val() == '') {
         $('#erroSua').text('Vui lòng nhập đủ thông tin');
