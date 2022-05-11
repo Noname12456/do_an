@@ -217,7 +217,7 @@
                 <td>
                     @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "phan_quyen_nv") == 1 || Session["maad"].ToString().Equals("admin"))
                     {
-                        <a href="/Admin/LOAIQUYENOFQUYEN/@item.quyen.Replace(" ", "")?manv=@item.ID.Replace(" ", "")">Phân quyền</a>
+                        <a href="/Admin/LOAIQUYENOFNHANVIEN/@item.quyen.Replace(" ", "")?manv=@item.ID.Replace(" ", "")">Phân quyền</a>
                        
                     }
                     @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "xoa_nv") == 1 || Session["maad"].ToString().Equals("admin"))

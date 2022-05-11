@@ -3,3 +3,14 @@ C:\Users\ADMIN\Desktop\do_an\web\web\bin\web.pdb
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.csprojResolveAssemblyReference.cache
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.dll
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.pdb
+C:\Users\My\Desktop\do_an\web\web\bin\web.dll
+C:\Users\My\Desktop\do_an\web\web\bin\web.pdb
+C:\Users\My\Desktop\do_an\web\web\bin\System.Net.Http.Formatting.dll
+C:\Users\My\Desktop\do_an\web\web\bin\System.Web.Http.dll
+C:\Users\My\Desktop\do_an\web\web\bin\System.Web.Http.WebHost.dll
+C:\Users\My\Desktop\do_an\web\web\bin\System.Net.Http.Formatting.xml
+C:\Users\My\Desktop\do_an\web\web\bin\System.Web.Http.xml
+C:\Users\My\Desktop\do_an\web\web\bin\System.Web.Http.WebHost.xml
+C:\Users\My\Desktop\do_an\web\web\obj\Debug\web.csprojResolveAssemblyReference.cache
+C:\Users\My\Desktop\do_an\web\web\obj\Debug\web.dll
+C:\Users\My\Desktop\do_an\web\web\obj\Debug\web.pdb

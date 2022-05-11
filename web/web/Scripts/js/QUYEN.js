@@ -33,7 +33,7 @@ function ChiTietQuyen(id) {
         type: 'POST',
         success: function (res) {
             if (res.status == true) {
-                $('#masua').val(res.data[0].ID);
+                $('#masua').val(res.data[0].Ma);
                 $('#tensua').val(res.data[0].Ten);
             }
             else {

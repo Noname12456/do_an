@@ -9,7 +9,7 @@ namespace web.Models
 {
     public class LOAIQUYENOFQUYEN
     {
-        public string conf = "Data Source=KID;Initial Catalog=QL_NhaSach;User ID=sa";
+        public string conf = "Data Source=LAPTOP-G07FAD75;Initial Catalog=QL_NhaSach;User ID=sa";
         public string ID { get; set; }
         public string Ma { get; set; }
         public string Ten { get; set; }
@@ -81,18 +81,15 @@ namespace web.Models
             con.Close();
             con.Open();
             SqlCommand cmd3 = new SqlCommand("select MANV from NHANVIEN where IDQUYEN = '" + maquyen + "'", con);
-            cmd.CommandType = CommandType.Text;
-            con.Close();
-            con.Open();
-            SqlDataReader dr2 = cmd.ExecuteReader();
-            con.Close();
+            cmd3.CommandType = CommandType.Text;
+            SqlDataReader dr2 = cmd3.ExecuteReader();
             while (dr2.Read())
             {
                 SqlCommand cmd2 = new SqlCommand("insert into LOAIQUYENOFNHANVIEN(MANV,IDLOAIQUYEN) values(N'" + dr2.GetValue(0).ToString() + "','" + maloaiquyen + "')", con);
                 cmd2.CommandType = CommandType.Text;
                 dr = cmd2.ExecuteNonQuery();
-                con.Close();
             }
+            con.Close();
             return dr;
         }
         public int update(int maloaiquyen, string maquyen)

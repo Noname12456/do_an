@@ -9,7 +9,7 @@ namespace web.Models
 {
     public class QUYEN
     {
-        public string conf = "Data Source=KID;Initial Catalog=QL_NhaSach;User ID=sa";
+        public string conf = "Data Source=LAPTOP-G07FAD75;Initial Catalog=QL_NhaSach;User ID=sa";
         public string ID { get; set; }
         public string Ma { get; set; }
         public string Ten { get; set; }
@@ -58,7 +58,7 @@ namespace web.Models
         {
             List<QUYEN> listBH = new List<QUYEN>();
             SqlConnection con = new SqlConnection(conf);
-            SqlCommand cmd = new SqlCommand("select * from QUYEN where maquyen ='"+ma+"'", con);
+            SqlCommand cmd = new SqlCommand("select * from QUYEN where idquyen ='"+ma+"'", con);
             cmd.CommandType = CommandType.Text;
             con.Open();
             SqlDataReader dr = cmd.ExecuteReader();

@@ -9,7 +9,7 @@ namespace web.Models
 {
     public class LOAIQUYENOFNHANVIEN
     {
-        public string conf = "Data Source=KID;Initial Catalog=QL_NhaSach;User ID=sa";
+        public string conf = "Data Source=LAPTOP-G07FAD75;Initial Catalog=QL_NhaSach;User ID=sa";
         public string ID { get; set; }
         public string Ma { get; set; }
         public string Ten { get; set; }
