@@ -73,13 +73,6 @@ $('#themImg').off('click').on('click', function () {
     $('#table tbody').append(str);
     $('#img_' + row).hide();
 });
-$('#themImgSua').off('click').on('click', function () {
-    var table = document.getElementById("table2");
-    var row = $('#table2 tr').length;
-    var str = '<tr id="rowsua_' + row + '"><td><img src="#" id="imgsua_' + row + '" style="width:120px;height:120px"/></td><td><div class="input-group mb-3"><div class="custom-file"><input type="file" class="custom-file-input hinh5" id="inputGroupFileSua_' + row + '" name="" onchange="loadImg(this,' + row + ')" data-id="' + row + '"><label class="custom-file-label" for="inputGroupFile_' + row + '">Choose file</label></div></div></td><td><button type="button" class="btn btn-danger" name="them" value="them" onclick="XoaImgSua(' + row + ')" style="margin-bottom: 17px">Xóa</button></td></tr>';
-    $('#table2 tbody').append(str);
-    $('#imgsua_' + row).hide();
-});
 function XoaImg(rowDelete) {
     var row = $('#table tr').length;
     if (row > 1) {
@@ -116,6 +109,7 @@ function ChiTiet(id) {
     var data = {
         id: id
     }
+    $("#load_"+id).load(location.href + " #load2_" + id);
     $.ajax({
         url: '/Admin/CHITIETSACH',
         data: { cartModel: JSON.stringify(data) },
@@ -123,6 +117,7 @@ function ChiTiet(id) {
         type: 'POST',
         success: function (res) {
             if (res.status == true) {
+                
                 $('#masua').val(res.data[0].MASP);
                 $('#tensua').val(res.data[0].TENSP);
                 $('#motasua').val(res.data[0].MOTA);

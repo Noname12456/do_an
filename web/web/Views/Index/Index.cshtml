@@ -93,7 +93,6 @@
 <!-- Tab panes -->
 <div class="tab-content">
     <div id="home" class="container tab-pane active">
-        <br>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -104,7 +103,7 @@
                             foreach (var item in sanPham)
                             {
                                 var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                            <div class="col-xl-2 col-sm-4 col-6">
+                            <div class="col-xl-2 col-sm-4 col-12">
                                 <div class="card">
                                     <a href="@link">
                                         <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
@@ -120,12 +119,12 @@
                                                 }
 
                                             </div>
-                                            <p>@item.TENSP</p>
+                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                             <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                             <div style="margin-right: 10px">
                                                 @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                                 {
-                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                         Thêm giỏ hàng
                                                     </button>
                                                 }
@@ -136,105 +135,104 @@
                             </div>
                             }
                         }
-
                     </div>
-                    @{
-                        var sanPham2 = SP.getDataSP2("LCDH004", 7, 6);
-                        if (sanPham2.Count > 0)
-                        {
-                        <div class="carousel-item">
-                            <div class="row">
-                                @{
-                            foreach (var item in sanPham2)
-                            {
-                                var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-2 col-sm-4 col-6">
-                                        <div class="card">
-                                            <a href="@link">
-                                                <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                    <div class="text-center">
-                                                        @{
-                                SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                var sanPhamHinh = SPH.getData(@item.MASP);
-                                foreach (var itemHinh in sanPhamHinh)
-                                {
-                                    var hinh = "/IMG/" + itemHinh.HINH;
-                                                             <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                                }
-                                                        }
-
-                                                    </div>
-                                                    <p>@item.TENSP</p>
-                                                    <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                    <div style="margin-right: 10px">
-                                                        @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                        {
-                                                            <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                Thêm giỏ hàng
-                                                            </button>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                            }
-                                }
-                            </div>
-                        </div>
-                        }
-                    }
-                    @{
-                        var sanPham3 = SP.getDataSP2("LCDH004", 13, 6);
-                        if (sanPham3.Count > 0)
-                        {
-                        <div class="carousel-item">
-                            <div class="row">
-                                @{
-                            foreach (var item in sanPham3)
-                            {
-                                var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-2 col-sm-4 col-6">
-                                        <div class="card">
-                                            <a href="@link">
-                                                <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                    <div class="text-center">
-                                                        @{
-                                SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                var sanPhamHinh = SPH.getData(@item.MASP);
-                                foreach (var itemHinh in sanPhamHinh)
-                                {
-                                    var hinh = "/IMG/" + itemHinh.HINH;
-                                                             <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                                }
-                                                        }
-
-                                                    </div>
-                                                    <p>@item.TENSP</p>
-                                                    <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                    <div style="margin-right: 10px">
-                                                        @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                        {
-                                                            <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                Thêm giỏ hàng
-                                                            </button>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                            }
-                                }
-                            </div>
-                        </div>
-                        }
-                    }
                 </div>
+                @{
+                    var sanPham2 = SP.getDataSP2("LCDH004", 7, 6);
+                    if (sanPham2.Count > 0)
+                    {
+                    <div class="carousel-item">
+                        <div class="row">
+                            @{
+                        foreach (var item in sanPham2)
+                        {
+                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                <div class="col-xl-2 col-sm-4 col-12">
+                                    <div class="card">
+                                        <a href="@link">
+                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                                <div class="text-center">
+                                                    @{
+                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                            var sanPhamHinh = SPH.getData(@item.MASP);
+                            foreach (var itemHinh in sanPhamHinh)
+                            {
+                                var hinh = "/IMG/" + itemHinh.HINH;
+                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                            }
+                                                    }
+
+                                                </div>
+                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                <div style="margin-right: 10px">
+                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                    {
+                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                            Thêm giỏ hàng
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                        }
+                            }
+                        </div>
+                    </div>
+                    }
+                }
+                @{
+                    var sanPham3 = SP.getDataSP2("LCDH004", 13, 6);
+                    if (sanPham3.Count > 0)
+                    {
+                    <div class="carousel-item">
+                        <div class="row">
+                            @{
+                        foreach (var item in sanPham3)
+                        {
+                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                <div class="col-xl-2 col-sm-4 col-12">
+                                    <div class="card">
+                                        <a href="@link">
+                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                                <div class="text-center">
+                                                    @{
+                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                            var sanPhamHinh = SPH.getData(@item.MASP);
+                            foreach (var itemHinh in sanPhamHinh)
+                            {
+                                var hinh = "/IMG/" + itemHinh.HINH;
+                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                            }
+                                                    }
+
+                                                </div>
+                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                <div style="margin-right: 10px">
+                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                    {
+                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                            Thêm giỏ hàng
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                        }
+                            }
+                        </div>
+                    </div>
+                    }
+                }
             </div>
         </div>
         <div class="text-center" style="margin-top: 10px">
-            <a href="/DSSPLCD/DSSPLCD/LCDH004" class="btn btn-outline-danger">Xem Thêm</a>
+            <a href="/DSSP/LOAICHUDE/LCDH004" class="btn btn-outline-danger">Xem Thêm</a>
         </div>
     </div>
     <div id="menu1" class="container tab-pane fade">
@@ -247,10 +245,10 @@
                         foreach (var item in sanPham5)
                         {
                             var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                        <div class="col-xl-2 col-sm-4 col-6">
+                        <div class="col-xl-2 col-sm-4 col-12">
                             <div class="card">
                                 <a href="@link">
-                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
+                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
                                         <div class="text-center">
                                             @{
                             SANPHAMHINHANH SPH = new SANPHAMHINHANH();
@@ -263,12 +261,12 @@
                                             }
 
                                         </div>
-                                        <p>@item.TENSP</p>
+                                        <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                         <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                         <div style="margin-right: 10px">
                                             @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                             {
-                                                <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                     Thêm giỏ hàng
                                                 </button>
                                             }
@@ -279,104 +277,103 @@
                         </div>
                         }
                     }
-
                 </div>
-                @{
-                    var sanPham6 = SP.getDataSP2("LCDH005", 7, 6);
-                    if (sanPham6.Count > 0)
-                    {
-                    <div class="carousel-item">
-                        <div class="row">
-                            @{
-                        foreach (var item in sanPham6)
-                        {
-                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                <div class="col-xl-2 col-sm-4 col-6">
-                                    <div class="card">
-                                        <a href="@link">
-                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                <div class="text-center">
-                                                    @{
-                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                            var sanPhamHinh = SPH.getData(@item.MASP);
-                            foreach (var itemHinh in sanPhamHinh)
-                            {
-                                var hinh = "/IMG/" + itemHinh.HINH;
-                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                            }
-                                                    }
-
-                                                </div>
-                                                <p>@item.TENSP</p>
-                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                <div style="margin-right: 10px">
-                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                    {
-                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                            Thêm giỏ hàng
-                                                        </button>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                        }
-                            }
-                        </div>
-                    </div>
-                    }
-                }
-                @{
-                    var sanPham7 = SP.getDataSP2("LCDH005", 13, 6);
-                    if (sanPham7.Count > 0)
-                    {
-                    <div class="carousel-item">
-                        <div class="row">
-                            @{
-                        foreach (var item in sanPham7)
-                        {
-                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                <div class="col-xl-2 col-sm-4 col-6">
-                                    <div class="card">
-                                        <a href="@link">
-                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                <div class="text-center">
-                                                    @{
-                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                            var sanPhamHinh = SPH.getData(@item.MASP);
-                            foreach (var itemHinh in sanPhamHinh)
-                            {
-                                var hinh = "/IMG/" + itemHinh.HINH;
-                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                            }
-                                                    }
-
-                                                </div>
-                                                <p>@item.TENSP</p>
-                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                <div style="margin-right: 10px">
-                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                    {
-                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                            Thêm giỏ hàng
-                                                        </button>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                        }
-                            }
-                        </div>
-                    </div>
-                    }
-                }
             </div>
+            @{
+                var sanPham6 = SP.getDataSP2("LCDH005", 7, 6);
+                if (sanPham6.Count > 0)
+                {
+                <div class="carousel-item">
+                    <div class="row">
+                        @{
+                    foreach (var item in sanPham6)
+                    {
+                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                            <div class="col-xl-2 col-sm-4 col-12">
+                                <div class="card">
+                                    <a href="@link">
+                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                            <div class="text-center">
+                                                @{
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                        var sanPhamHinh = SPH.getData(@item.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                        {
+                            var hinh = "/IMG/" + itemHinh.HINH;
+                                                    <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                        }
+                                                }
+
+                                            </div>
+                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                            <div style="margin-right: 10px">
+                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                {
+                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                        Thêm giỏ hàng
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                    }
+                        }
+                    </div>
+                </div>
+                }
+            }
+            @{
+                var sanPham7 = SP.getDataSP2("LCDH005", 13, 6);
+                if (sanPham7.Count > 0)
+                {
+                <div class="carousel-item">
+                    <div class="row">
+                        @{
+                    foreach (var item in sanPham7)
+                    {
+                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                            <div class="col-xl-2 col-sm-4 col-12">
+                                <div class="card">
+                                    <a href="@link">
+                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                            <div class="text-center">
+                                                @{
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                        var sanPhamHinh = SPH.getData(@item.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                        {
+                            var hinh = "/IMG/" + itemHinh.HINH;
+                                                    <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                        }
+                                                }
+
+                                            </div>
+                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                            <div style="margin-right: 10px">
+                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                {
+                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                        Thêm giỏ hàng
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                    }
+                        }
+                    </div>
+                </div>
+                }
+            }
         </div>
         <div class="text-center" style="margin-top: 10px">
-            <a href="/DSSPLCD/DSSPLCD/LCDH005" class="btn btn-outline-danger">Xem Thêm</a>
+            <a href="/DSSP/LOAICHUDE/LCDH005" class="btn btn-outline-danger">Xem Thêm</a>
         </div>
     </div>
 </div>
@@ -384,10 +381,10 @@
 
 <ul class="nav nav-tabs" style="margin-top: 10px">
     <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#menu2" style="color: black">Sách Giáo Khoa</a>
+        <a class="nav-link active" data-toggle="tab" href="#menu2" style="color: black">Tiểu Thuyết</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#menu3" style="color: black">Sách Tham Khảo</a>
+        <a class="nav-link" data-toggle="tab" href="#menu3" style="color: black">Ngôn tình</a>
     </li>
 </ul>
 
@@ -400,14 +397,14 @@
                 <div class="carousel-item active">
                     <div class="row">
                         @{
-                            var sanPham8 = SP.getDataSP("LCDH004", 6);
+                            var sanPham8 = SP.getDataSP("LCDH001", 6);
                             foreach (var item in sanPham8)
                             {
                                 var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                            <div class="col-xl-2 col-sm-4 col-6">
+                            <div class="col-xl-2 col-sm-4 col-12">
                                 <div class="card">
                                     <a href="@link">
-                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
+                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
                                             <div class="text-center">
                                                 @{
                                 SANPHAMHINHANH SPH = new SANPHAMHINHANH();
@@ -415,17 +412,17 @@
                                 foreach (var itemHinh in sanPhamHinh)
                                 {
                                     var hinh = "/IMG/" + itemHinh.HINH;
-                                                   <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                                                    <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
                                 }
                                                 }
 
                                             </div>
-                                            <p>@item.TENSP</p>
+                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                             <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                             <div style="margin-right: 10px">
                                                 @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                                 {
-                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                         Thêm giỏ hàng
                                                     </button>
                                                 }
@@ -436,105 +433,104 @@
                             </div>
                             }
                         }
-
                     </div>
-                    @{
-                        var sanPham9 = SP.getDataSP2("LCDH004", 7, 6);
-                        if (sanPham2.Count > 0)
-                        {
-                        <div class="carousel-item">
-                            <div class="row">
-                                @{
-                            foreach (var item in sanPham9)
-                            {
-                                var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-2 col-sm-4 col-6">
-                                        <div class="card">
-                                            <a href="@link">
-                                                <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                    <div class="text-center">
-                                                        @{
-                                SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                var sanPhamHinh = SPH.getData(@item.MASP);
-                                foreach (var itemHinh in sanPhamHinh)
-                                {
-                                    var hinh = "/IMG/" + itemHinh.HINH;
-                                                            <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                                }
-                                                        }
-
-                                                    </div>
-                                                    <p>@item.TENSP</p>
-                                                    <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                    <div style="margin-right: 10px">
-                                                        @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                        {
-                                                            <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                Thêm giỏ hàng
-                                                            </button>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                            }
-                                }
-                            </div>
-                        </div>
-                        }
-                    }
-                    @{
-                        var sanPham10 = SP.getDataSP2("LCDH004", 13, 6);
-                        if (sanPham10.Count > 0)
-                        {
-                        <div class="carousel-item">
-                            <div class="row">
-                                @{
-                            foreach (var item in sanPham10)
-                            {
-                                var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-2 col-sm-4 col-6">
-                                        <div class="card">
-                                            <a href="@link">
-                                                <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                    <div class="text-center">
-                                                        @{
-                                SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                var sanPhamHinh = SPH.getData(@item.MASP);
-                                foreach (var itemHinh in sanPhamHinh)
-                                {
-                                    var hinh = "/IMG/" + itemHinh.HINH;
-                                                            <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                                }
-                                                        }
-
-                                                    </div>
-                                                    <p>@item.TENSP</p>
-                                                    <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                    <div style="margin-right: 10px">
-                                                        @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                        {
-                                                            <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                Thêm giỏ hàng
-                                                            </button>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                            }
-                                }
-                            </div>
-                        </div>
-                        }
-                    }
                 </div>
+                @{
+                    var sanPham9 = SP.getDataSP2("LCDH001", 7, 6);
+                    if (sanPham9.Count > 0)
+                    {
+                    <div class="carousel-item">
+                        <div class="row">
+                            @{
+                        foreach (var item in sanPham9)
+                        {
+                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                <div class="col-xl-2 col-sm-4 col-12">
+                                    <div class="card">
+                                        <a href="@link">
+                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                                <div class="text-center">
+                                                    @{
+                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                            var sanPhamHinh = SPH.getData(@item.MASP);
+                            foreach (var itemHinh in sanPhamHinh)
+                            {
+                                var hinh = "/IMG/" + itemHinh.HINH;
+                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                            }
+                                                    }
+
+                                                </div>
+                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                <div style="margin-right: 10px">
+                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                    {
+                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                            Thêm giỏ hàng
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                        }
+                            }
+                        </div>
+                    </div>
+                    }
+                }
+                @{
+                    var sanPham10 = SP.getDataSP2("LCDH001", 13, 6);
+                    if (sanPham10.Count > 0)
+                    {
+                    <div class="carousel-item">
+                        <div class="row">
+                            @{
+                        foreach (var item in sanPham10)
+                        {
+                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                <div class="col-xl-2 col-sm-4 col-12">
+                                    <div class="card">
+                                        <a href="@link">
+                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                                <div class="text-center">
+                                                    @{
+                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                            var sanPhamHinh = SPH.getData(@item.MASP);
+                            foreach (var itemHinh in sanPhamHinh)
+                            {
+                                var hinh = "/IMG/" + itemHinh.HINH;
+                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                            }
+                                                    }
+
+                                                </div>
+                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                <div style="margin-right: 10px">
+                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                    {
+                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                            Thêm giỏ hàng
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                        }
+                            }
+                        </div>
+                    </div>
+                    }
+                }
             </div>
         </div>
         <div class="text-center" style="margin-top: 10px">
-            <a href="/DSSPLCD/DSSPLCD/LCDH004" class="btn btn-outline-danger">Xem Thêm</a>
+            <a href="/DSSP/LOAICHUDE/LCDH001" class="btn btn-outline-danger">Xem Thêm</a>
         </div>
     </div>
     <div id="menu3" class="container tab-pane fade">
@@ -543,14 +539,14 @@
             <div class="carousel-item active">
                 <div class="row">
                     @{
-                        var sanPham11 = SP.getDataSP("LCDH005", 6);
+                        var sanPham11 = SP.getDataSP("LCDH003", 6);
                         foreach (var item in sanPham11)
                         {
                             var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                        <div class="col-xl-2 col-sm-4 col-6">
+                        <div class="col-xl-2 col-sm-4 col-12">
                             <div class="card">
                                 <a href="@link">
-                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
+                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
                                         <div class="text-center">
                                             @{
                             SANPHAMHINHANH SPH = new SANPHAMHINHANH();
@@ -563,12 +559,12 @@
                                             }
 
                                         </div>
-                                        <p>@item.TENSP</p>
+                                        <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                         <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                         <div style="margin-right: 10px">
                                             @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                             {
-                                                <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                     Thêm giỏ hàng
                                                 </button>
                                             }
@@ -579,116 +575,115 @@
                         </div>
                         }
                     }
-
                 </div>
-                @{
-                    var sanPham12 = SP.getDataSP2("LCDH005", 7, 6);
-                    if (sanPham12.Count > 0)
-                    {
-                    <div class="carousel-item">
-                        <div class="row">
-                            @{
-                        foreach (var item in sanPham12)
-                        {
-                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                <div class="col-xl-2 col-sm-4 col-6">
-                                    <div class="card">
-                                        <a href="@link">
-                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                <div class="text-center">
-                                                    @{
-                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                            var sanPhamHinh = SPH.getData(@item.MASP);
-                            foreach (var itemHinh in sanPhamHinh)
-                            {
-                                var hinh = "/IMG/" + itemHinh.HINH;
-                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                            }
-                                                    }
-
-                                                </div>
-                                                <p>@item.TENSP</p>
-                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                <div style="margin-right: 10px">
-                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                    {
-                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                            Thêm giỏ hàng
-                                                        </button>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                        }
-                            }
-                        </div>
-                    </div>
-                    }
-                }
-                @{
-                    var sanPham13 = SP.getDataSP2("LCDH005", 13, 6);
-                    if (sanPham13.Count > 0)
-                    {
-                    <div class="carousel-item">
-                        <div class="row">
-                            @{
-                        foreach (var item in sanPham13)
-                        {
-                            var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                <div class="col-xl-2 col-sm-4 col-6">
-                                    <div class="card">
-                                        <a href="@link">
-                                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
-                                                <div class="text-center">
-                                                    @{
-                            SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                            var sanPhamHinh = SPH.getData(@item.MASP);
-                            foreach (var itemHinh in sanPhamHinh)
-                            {
-                                var hinh = "/IMG/" + itemHinh.HINH;
-                                                        <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
-                            }
-                                                    }
-
-                                                </div>
-                                                <p>@item.TENSP</p>
-                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                <div style="margin-right: 10px">
-                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                    {
-                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                            Thêm giỏ hàng
-                                                        </button>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                        }
-                            }
-                        </div>
-                    </div>
-                    }
-                }
             </div>
+            @{
+                var sanPham12 = SP.getDataSP2("LCDH003", 7, 6);
+                if (sanPham12.Count > 0)
+                {
+                <div class="carousel-item">
+                    <div class="row">
+                        @{
+                    foreach (var item in sanPham12)
+                    {
+                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                            <div class="col-xl-2 col-sm-4 col-12">
+                                <div class="card">
+                                    <a href="@link">
+                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                            <div class="text-center">
+                                                @{
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                        var sanPhamHinh = SPH.getData(@item.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                        {
+                            var hinh = "/IMG/" + itemHinh.HINH;
+                                                    <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                        }
+                                                }
+
+                                            </div>
+                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                            <div style="margin-right: 10px">
+                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                {
+                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                        Thêm giỏ hàng
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                    }
+                        }
+                    </div>
+                </div>
+                }
+            }
+            @{
+                var sanPham13 = SP.getDataSP2("LCDH003", 13, 6);
+                if (sanPham13.Count > 0)
+                {
+                <div class="carousel-item">
+                    <div class="row">
+                        @{
+                    foreach (var item in sanPham13)
+                    {
+                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                            <div class="col-xl-2 col-sm-4 col-12">
+                                <div class="card">
+                                    <a href="@link">
+                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                            <div class="text-center">
+                                                @{
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                        var sanPhamHinh = SPH.getData(@item.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                        {
+                            var hinh = "/IMG/" + itemHinh.HINH;
+                                                    <img class="card-img-top w-100" src="@hinh" style="height:205px"/>
+                        }
+                                                }
+
+                                            </div>
+                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                            <div style="margin-right: 10px">
+                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                {
+                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                        Thêm giỏ hàng
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                    }
+                        }
+                    </div>
+                </div>
+                }
+            }
         </div>
         <div class="text-center" style="margin-top: 10px">
-            <a href="/DSSPLCD/DSSPLCD/LCDH005" class="btn btn-outline-danger">Xem Thêm</a>
+            <a href="/DSSP/LOAICHUDE/LCDH003" class="btn btn-outline-danger">Xem Thêm</a>
         </div>
     </div>
 </div>
 
 
-<h2>Văn Học</h2>
+<h2>Đồ Chơi</h2>
 <ul class="nav nav-tabs" style="margin-top: 10px">
     <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#menu4" style="color: black">Sách Giáo Khoa</a>
+        <a class="nav-link active" data-toggle="tab" href="#menu4" style="color: black">Đồ Chơi Nổi Bật</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#menu5" style="color: black">Sách Tham Khảo</a>
+        <a class="nav-link" data-toggle="tab" href="#menu5" style="color: black">Đồ Chơi Giáo Dục</a>
     </li>
 </ul>
 <div class="row" style="margin-top: 10px">
@@ -704,11 +699,11 @@
                         <div class="carousel-item active">
                             <div class="row">
                                 @{
-                                    var sanPham15 = SP.getDataSP("LCDH004", 4);
+                                    var sanPham15 = SP.getDataSP("LCDH008", 4);
                                     foreach (var item in sanPham15)
                                     {
                                         var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="col-xl-6 col-sm-6 col-12">
                                         <div class="card">
                                             <a href="@link">
                                                 <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
@@ -725,12 +720,12 @@
                                                             }
                                                         </div>
                                                         <div class="col-xl-6">
-                                                            <p>@item.TENSP</p>
+                                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                                             <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                                             <div style="margin-right: 10px">
                                                                 @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                                                 {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                                         Thêm giỏ hàng
                                                                     </button>
                                                                 }
@@ -743,59 +738,61 @@
                                     </div>
                                     }
                                 }
-
                             </div>
-                            @{
-                                var sanPham16 = SP.getDataSP2("LCDH004", 7, 6);
-                                if (sanPham16.Count > 0)
+                        </div>
+                        @{
+                            var sanPham16 = SP.getDataSP2("LCDH008", 4, 4);
+                            if (sanPham16.Count > 0)
+                            {
+                            <div class="carousel-item">
+                                <div class="row">
+                                    @{
+                                foreach (var item in sanPham16)
                                 {
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        @{
-                                    foreach (var item in sanPham16)
-                                    {
-                                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                            <div class="col-xl-2 col-sm-4 col-6">
-                                                <div class="card">
-                                                    <a href="@link">
-                                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
-                                                            <div class="text-center">
+                                    var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                        <div class="col-xl-6 col-sm-6 col-12">
+                                            <div class="card">
+                                                <a href="@link">
+                                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                                        <div class="row">
+                                                            <div class="col-xl-6">
                                                                 @{
-                                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                        var sanPhamHinh = SPH.getData(@item.MASP);
-                                        foreach (var itemHinh in sanPhamHinh)
-                                        {
-                                            var hinh = "/IMG/" + itemHinh.HINH;
-                                                                    <img class="card-img-top" src="@hinh" style="height:178px"/>
-                                        }
+                                    SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                    var sanPhamHinh = SPH.getData(@item.MASP);
+                                    foreach (var itemHinh in sanPhamHinh)
+                                    {
+                                        var hinh = "/IMG/" + itemHinh.HINH;
+                                                                    <img class="card-img-top w-100" src="@hinh" style="height:178px"/>
+                                    }
                                                                 }
-
                                                             </div>
-                                                            <p>@item.TENSP</p>
-                                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                            <div style="margin-right: 10px">
-                                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                                {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                        Thêm giỏ hàng
-                                                                    </button>
-                                                                }
+                                                            <div class="col-xl-6">
+                                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                                <div style="margin-right: 10px">
+                                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                                    {
+                                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                                            Thêm giỏ hàng
+                                                                        </button>
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </a>
-                                                </div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                    }
-                                        }
-                                    </div>
-                                </div>
+                                        </div>
                                 }
+                                    }
+                                </div>
+                            </div>
                             }
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="text-center" style="margin-top: 10px">
-                    <a href="/DSSPLCD/DSSPLCD/LCDH004" class="btn btn-outline-danger">Xem Thêm</a>
+                    <a href="/DSSP/LOAICHUDE/LCDH008" class="btn btn-outline-danger">Xem Thêm</a>
                 </div>
             </div>
             <div id="menu5" class="container tab-pane fade">
@@ -805,11 +802,11 @@
                         <div class="carousel-item active">
                             <div class="row">
                                 @{
-                                    var sanPham17 = SP.getDataSP("LCDH004", 4);
+                                    var sanPham17 = SP.getDataSP("LCDH009", 4);
                                     foreach (var item in sanPham17)
                                     {
                                         var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="col-xl-6 col-sm-6 col-12">
                                         <div class="card">
                                             <a href="@link">
                                                 <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
@@ -826,12 +823,12 @@
                                                             }
                                                         </div>
                                                         <div class="col-xl-6">
-                                                            <p>@item.TENSP</p>
+                                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                                             <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                                             <div style="margin-right: 10px">
                                                                 @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                                                 {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                                         Thêm giỏ hàng
                                                                     </button>
                                                                 }
@@ -844,59 +841,61 @@
                                     </div>
                                     }
                                 }
-
                             </div>
-                            @{
-                                var sanPham18 = SP.getDataSP2("LCDH004", 7, 6);
-                                if (sanPham18.Count > 0)
+                        </div>
+                        @{
+                            var sanPham18 = SP.getDataSP2("LCDH009", 4, 4);
+                            if (sanPham18.Count > 0)
+                            {
+                            <div class="carousel-item">
+                                <div class="row">
+                                    @{
+                                foreach (var item in sanPham18)
                                 {
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        @{
-                                    foreach (var item in sanPham18)
-                                    {
-                                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                            <div class="col-xl-2 col-sm-4 col-6">
-                                                <div class="card">
-                                                    <a href="@link">
-                                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
-                                                            <div class="text-center">
+                                    var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                        <div class="col-xl-6 col-sm-6 col-12">
+                                            <div class="card">
+                                                <a href="@link">
+                                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                                        <div class="row">
+                                                            <div class="col-xl-6">
                                                                 @{
-                                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                        var sanPhamHinh = SPH.getData(@item.MASP);
-                                        foreach (var itemHinh in sanPhamHinh)
-                                        {
-                                            var hinh = "/IMG/" + itemHinh.HINH;
-                                                                    <img class="card-img-top" src="@hinh" style="height:178px"/>
-                                        }
+                                    SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                    var sanPhamHinh = SPH.getData(@item.MASP);
+                                    foreach (var itemHinh in sanPhamHinh)
+                                    {
+                                        var hinh = "/IMG/" + itemHinh.HINH;
+                                                                    <img class="card-img-top w-100" src="@hinh" style="height:178px"/>
+                                    }
                                                                 }
-
                                                             </div>
-                                                            <p>@item.TENSP</p>
-                                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                            <div style="margin-right: 10px">
-                                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                                {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                        Thêm giỏ hàng
-                                                                    </button>
-                                                                }
+                                                            <div class="col-xl-6">
+                                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                                <div style="margin-right: 10px">
+                                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                                    {
+                                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                                            Thêm giỏ hàng
+                                                                        </button>
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </a>
-                                                </div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                    }
-                                        }
-                                    </div>
-                                </div>
+                                        </div>
                                 }
+                                    }
+                                </div>
+                            </div>
                             }
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="text-center" style="margin-top: 10px">
-                    <a href="/DSSPLCD/DSSPLCD/LCDH004" class="btn btn-outline-danger">Xem Thêm</a>
+                    <a href="/DSSP/LOAICHUDE/LCDH009" class="btn btn-outline-danger">Xem Thêm</a>
                 </div>
             </div>
         </div>
@@ -906,10 +905,10 @@
 <h2 style="margin-top: 10px">Thiếu Nhi</h2>
 <ul class="nav nav-tabs" style="margin-top: 10px">
     <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#menu6" style="color: black">Sách Giáo Khoa</a>
+        <a class="nav-link active" data-toggle="tab" href="#menu6" style="color: black">Manga - Comic</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#menu7" style="color: black">Sách Tham Khảo</a>
+        <a class="nav-link" data-toggle="tab" href="#menu7" style="color: black">Kiến Thức Bách Khoa</a>
     </li>
 </ul>
 <div class="row" style="margin-top: 10px">
@@ -925,11 +924,11 @@
                         <div class="carousel-item active">
                             <div class="row">
                                 @{
-                                    var sanPham21 = SP.getDataSP("LCDH004", 4);
+                                    var sanPham21 = SP.getDataSP("LCDH010", 4);
                                     foreach (var item in sanPham21)
                                     {
                                         var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="col-xl-6 col-sm-6 col-12">
                                         <div class="card">
                                             <a href="@link">
                                                 <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
@@ -946,12 +945,12 @@
                                                             }
                                                         </div>
                                                         <div class="col-xl-6">
-                                                            <p>@item.TENSP</p>
+                                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                                             <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                                             <div style="margin-right: 10px">
                                                                 @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                                                 {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                                         Thêm giỏ hàng
                                                                     </button>
                                                                 }
@@ -964,59 +963,61 @@
                                     </div>
                                     }
                                 }
-
                             </div>
-                            @{
-                                var sanPham19 = SP.getDataSP2("LCDH004", 7, 6);
-                                if (sanPham19.Count > 0)
+                        </div>
+                        @{
+                            var sanPham19 = SP.getDataSP2("LCDH010", 4, 4);
+                            if (sanPham19.Count > 0)
+                            {
+                            <div class="carousel-item">
+                                <div class="row">
+                                    @{
+                                foreach (var item in sanPham19)
                                 {
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        @{
-                                    foreach (var item in sanPham19)
-                                    {
-                                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                            <div class="col-xl-2 col-sm-4 col-6">
-                                                <div class="card">
-                                                    <a href="@link">
-                                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
-                                                            <div class="text-center">
+                                    var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                        <div class="col-xl-6 col-sm-6 col-12">
+                                            <div class="card">
+                                                <a href="@link">
+                                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                                        <div class="row">
+                                                            <div class="col-xl-6">
                                                                 @{
-                                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                        var sanPhamHinh = SPH.getData(@item.MASP);
-                                        foreach (var itemHinh in sanPhamHinh)
-                                        {
-                                            var hinh = "/IMG/" + itemHinh.HINH;
-                                                                    <img class="card-img-top" src="@hinh" style="height:178px"/>
-                                        }
+                                    SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                    var sanPhamHinh = SPH.getData(@item.MASP);
+                                    foreach (var itemHinh in sanPhamHinh)
+                                    {
+                                        var hinh = "/IMG/" + itemHinh.HINH;
+                                                                    <img class="card-img-top w-100" src="@hinh" style="height:178px"/>
+                                    }
                                                                 }
-
                                                             </div>
-                                                            <p>@item.TENSP</p>
-                                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                            <div style="margin-right: 10px">
-                                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                                {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                        Thêm giỏ hàng
-                                                                    </button>
-                                                                }
+                                                            <div class="col-xl-6">
+                                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                                <div style="margin-right: 10px">
+                                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                                    {
+                                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                                            Thêm giỏ hàng
+                                                                        </button>
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </a>
-                                                </div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                    }
-                                        }
-                                    </div>
-                                </div>
+                                        </div>
                                 }
+                                    }
+                                </div>
+                            </div>
                             }
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="text-center" style="margin-top: 10px">
-                    <a href="/DSSPLCD/DSSPLCD/LCDH004" class="btn btn-outline-danger">Xem Thêm</a>
+                    <a href="/DSSP/LOAICHUDE/LCDH010" class="btn btn-outline-danger">Xem Thêm</a>
                 </div>
             </div>
             <div id="menu7" class="container tab-pane fade">
@@ -1026,11 +1027,11 @@
                         <div class="carousel-item active">
                             <div class="row">
                                 @{
-                                    var sanPham20 = SP.getDataSP("LCDH004", 4);
+                                    var sanPham20 = SP.getDataSP("LCDH011", 4);
                                     foreach (var item in sanPham20)
                                     {
                                         var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                    <div class="col-xl-6 col-sm-6 col-6">
+                                    <div class="col-xl-6 col-sm-6 col-12">
                                         <div class="card">
                                             <a href="@link">
                                                 <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
@@ -1047,12 +1048,12 @@
                                                             }
                                                         </div>
                                                         <div class="col-xl-6">
-                                                            <p>@item.TENSP</p>
+                                                            <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                                             <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                                             <div style="margin-right: 10px">
                                                                 @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
                                                                 {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                                         Thêm giỏ hàng
                                                                     </button>
                                                                 }
@@ -1065,59 +1066,61 @@
                                     </div>
                                     }
                                 }
-
                             </div>
-                            @{
-                                var sanPham22 = SP.getDataSP2("LCDH004", 7, 6);
-                                if (sanPham22.Count > 0)
+                        </div>
+                        @{
+                            var sanPham22 = SP.getDataSP2("LCDH011", 4, 4);
+                            if (sanPham22.Count > 0)
+                            {
+                            <div class="carousel-item">
+                                <div class="row">
+                                    @{
+                                foreach (var item in sanPham22)
                                 {
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        @{
-                                    foreach (var item in sanPham22)
-                                    {
-                                        var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                                            <div class="col-xl-2 col-sm-4 col-6">
-                                                <div class="card">
-                                                    <a href="@link">
-                                                        <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
-                                                            <div class="text-center">
+                                    var link = "/CHITIETSP/CHITIETSP/" + item.MASP;
+                                        <div class="col-xl-6 col-sm-6 col-12">
+                                            <div class="card">
+                                                <a href="@link">
+                                                    <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                                        <div class="row">
+                                                            <div class="col-xl-6">
                                                                 @{
-                                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
-                                        var sanPhamHinh = SPH.getData(@item.MASP);
-                                        foreach (var itemHinh in sanPhamHinh)
-                                        {
-                                            var hinh = "/IMG/" + itemHinh.HINH;
-                                                                    <img class="card-img-top" src="@hinh" style="height:178px"/>
-                                        }
+                                    SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                    var sanPhamHinh = SPH.getData(@item.MASP);
+                                    foreach (var itemHinh in sanPhamHinh)
+                                    {
+                                        var hinh = "/IMG/" + itemHinh.HINH;
+                                                                    <img class="card-img-top w-100" src="@hinh" style="height:178px"/>
+                                    }
                                                                 }
-
                                                             </div>
-                                                            <p>@item.TENSP</p>
-                                                            <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
-                                                            <div style="margin-right: 10px">
-                                                                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
-                                                                {
-                                                                    <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
-                                                                        Thêm giỏ hàng
-                                                                    </button>
-                                                                }
+                                                            <div class="col-xl-6">
+                                                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                                                <div style="margin-right: 10px">
+                                                                    @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { @class = "" }))
+                                                                    {
+                                                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                                            Thêm giỏ hàng
+                                                                        </button>
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </a>
-                                                </div>
+                                                    </div>
+                                                </a>
                                             </div>
-                                    }
-                                        }
-                                    </div>
-                                </div>
+                                        </div>
                                 }
+                                    }
+                                </div>
+                            </div>
                             }
-                        </div>
+                        }
                     </div>
                 </div>
                 <div class="text-center" style="margin-top: 10px">
-                    <a href="/DSSPLCD/DSSPLCD/LCDH004" class="btn btn-outline-danger">Xem Thêm</a>
+                    <a href="/DSSP/LOAICHUDE/LCDH011" class="btn btn-outline-danger">Xem Thêm</a>
                 </div>
             </div>
         </div>

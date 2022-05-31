@@ -143,16 +143,16 @@ namespace web.Models
             {
                 DONHANG emp = new DONHANG();
                 emp.ID = dr.GetValue(0).ToString();
-                emp.Ten = dr.GetValue(14).ToString();
+                emp.Ten = dr.GetValue(15).ToString();
                 emp.email = dr.GetValue(9).ToString();
                 emp.sdt = dr.GetValue(4).ToString();
-                emp.dc = dr.GetValue(15).ToString();
+                emp.dc = dr.GetValue(16).ToString();
                 emp.tinh = dr.GetValue(6).ToString();
                 emp.quan = dr.GetValue(7).ToString();
                 emp.ngaylap = dr.GetValue(1).ToString();
                 emp.tt = dr.GetValue(2).ToString();
                 emp.phuongxa = dr.GetValue(8).ToString();
-                emp.tiengiam = dr.GetValue(16).ToString();
+                emp.tiengiam = dr.GetValue(17).ToString();
                 listBH.Add(emp);
             }
             con.Close();
@@ -170,16 +170,16 @@ namespace web.Models
             {
                 DONHANG emp = new DONHANG();
                 emp.ID = dr.GetValue(0).ToString();
-                emp.Ten = dr.GetValue(14).ToString();
+                emp.Ten = dr.GetValue(15).ToString();
                 emp.email = dr.GetValue(9).ToString();
                 emp.sdt = dr.GetValue(4).ToString();
-                emp.dc = dr.GetValue(15).ToString();
+                emp.dc = dr.GetValue(16).ToString();
                 emp.tinh = dr.GetValue(6).ToString();
                 emp.quan = dr.GetValue(7).ToString();
                 emp.ngaylap = dr.GetValue(1).ToString();
                 emp.tt = dr.GetValue(2).ToString();
                 emp.phuongxa = dr.GetValue(8).ToString();
-                emp.tiengiam = dr.GetValue(16).ToString();
+                emp.tiengiam = dr.GetValue(17).ToString();
                 listBH.Add(emp);
             }
             con.Close();
@@ -197,16 +197,16 @@ namespace web.Models
             {
                 DONHANG emp = new DONHANG();
                 emp.ID = dr.GetValue(0).ToString();
-                emp.Ten = dr.GetValue(14).ToString();
+                emp.Ten = dr.GetValue(15).ToString();
                 emp.email = dr.GetValue(9).ToString();
                 emp.sdt = dr.GetValue(4).ToString();
-                emp.dc = dr.GetValue(15).ToString();
+                emp.dc = dr.GetValue(16).ToString();
                 emp.tinh = dr.GetValue(6).ToString();
                 emp.quan = dr.GetValue(7).ToString();
                 emp.ngaylap = dr.GetValue(1).ToString();
                 emp.tt = dr.GetValue(2).ToString();
                 emp.phuongxa = dr.GetValue(8).ToString();
-                emp.tiengiam = dr.GetValue(16).ToString();
+                emp.tiengiam = dr.GetValue(17).ToString();
                 listBH.Add(emp);
             }
             con.Close();
@@ -223,18 +223,19 @@ namespace web.Models
             while (dr.Read())
             {
                 DONHANG emp = new DONHANG();
+
                 emp.ID = dr.GetValue(0).ToString();
-                emp.Ten = dr.GetValue(14).ToString();
+                emp.Ten = dr.GetValue(15).ToString();
                 emp.email = dr.GetValue(9).ToString();
                 emp.sdt = dr.GetValue(4).ToString();
-                emp.dc = dr.GetValue(14).ToString();
+                emp.dc = dr.GetValue(16).ToString();
                 emp.tinh = dr.GetValue(6).ToString();
                 emp.quan = dr.GetValue(7).ToString();
                 emp.ngaylap = dr.GetValue(1).ToString();
-                emp.makm = dr.GetValue(13).ToString();
                 emp.tt = dr.GetValue(2).ToString();
                 emp.phuongxa = dr.GetValue(8).ToString();
-                emp.tiengiam = dr.GetValue(16).ToString();
+                emp.tiengiam = dr.GetValue(17).ToString();
+                emp.makm = dr.GetValue(13).ToString();
                 emp.trangthai = dr.GetValue(11).ToString();
                 emp.makh = dr.GetValue(12).ToString();
                 listBH.Add(emp);

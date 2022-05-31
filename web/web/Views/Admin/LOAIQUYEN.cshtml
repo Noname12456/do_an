@@ -83,7 +83,7 @@
                 <td>@item.Ma</td>
                 <td>@item.Ten</td>
                 <td>
-                    @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "them_loaiquyen") == 1 || Session["maad"].ToString().Equals("admin"))
+                    @if (quyennv.getDataQuyenNV(Session["maad"].ToString(), "sua_loaiquyen") == 1 || Session["maad"].ToString().Equals("admin"))
                     {
                         <button type="button" class="btn btn-outline-danger a" data-toggle="modal" data-target="#exampleModalSua" onclick="ChiTietLoaiQuyen('@item.ID')">
                             Sửa

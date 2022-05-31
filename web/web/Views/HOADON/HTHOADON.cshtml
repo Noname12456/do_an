@@ -34,17 +34,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            @{
-                if ((Boolean)Session["log"] == true)
+        @{
+            if ((Boolean)Session["log"] == true)
+            {
+                if (Session["HD"] != null)
                 {
-                    if (Session["HD"] != null)
+                    var menu = Session["HD"] as List<DONHANG>;
+                    if (!menu.Equals(0))
                     {
-                        var menu = Session["HD"] as List<DONHANG>;
-                        if (!menu.Equals(0))
+                        foreach (var item in menu)
                         {
-                            foreach (var item in menu)
-                            {
+            <tr>
                 <th scope="row">@item.ID</th>
                 <td>@item.Ten</td>
                 <td>@item.email</td>
@@ -56,54 +56,28 @@
                 <td>@item.tt</td>
                 <td>@item.tiengiam</td>
                 <td>@{
-                                var thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);}
+                            var thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);}
                     <p>@thanhtien</p>
                 </td>
-                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID }, new { @class = "dropdown-item", @style = "" })</td>
-                            }
-                        }
-                    }
-                    else
-                    {
-                        KHACHHANG m = new KHACHHANG();
-                        var kh = m.getData(Session["Email"].ToString());
-                        int ma = 0;
-                        foreach (var item in kh)
-                        {
-                            ma = item.ID;
-                        }
-                        DONHANG hd = new DONHANG();
-                        var menu1 = hd.getData(ma);
-                        foreach (var item in menu1)
-                        {
-                <th scope="row">@item.ID</th>
-                <td>@item.Ten</td>
-                <td>@item.email</td>
-                <td>@item.sdt</td>
-                <td>@item.dc</td>
-                <td>@item.tinh</td>
-                <td>@item.quan</td>
-                <td>@item.ngaylap</td>
-                <td>@item.tt</td>
-                <td>@item.tiengiam</td>
-                <td>@{
-                            int thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);
-                            }
-                    <p>@thanhtien</p>
-                </td>
-                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID }, new { @class = "dropdown-item", @style = "" })</td>
+                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })</td>
+            </tr>
                         }
                     }
                 }
                 else
                 {
-                    if (Session["HD"] != null)
+                    KHACHHANG m = new KHACHHANG();
+                    var kh = m.getData(Session["Email"].ToString());
+                    int ma = 0;
+                    foreach (var item in kh)
                     {
-                        var menu = Session["HD"] as List<DONHANG>;
-                        if (!menu.Equals(0))
-                        {
-                            foreach (var item in menu)
-                            {
+                        ma = item.ID;
+                    }
+                    DONHANG hd = new DONHANG();
+                    var menu1 = hd.getData(ma);
+                    foreach (var item in menu1)
+                    {
+            <tr>
                 <th scope="row">@item.ID</th>
                 <td>@item.Ten</td>
                 <td>@item.email</td>
@@ -115,16 +89,46 @@
                 <td>@item.tt</td>
                 <td>@item.tiengiam</td>
                 <td>@{
-                                var thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);}
+                        int thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);
+                }
                     <p>@thanhtien</p>
                 </td>
-                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID }, new { @class = "dropdown-item", @style = "" })</td>
-                            }
+                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })</td>
+            </tr>
+                    }
+                }
+            }
+            else
+            {
+                if (Session["HD"] != null)
+                {
+                    var menu = Session["HD"] as List<DONHANG>;
+                    if (!menu.Equals(0))
+                    {
+                        foreach (var item in menu)
+                        {
+            <tr>
+                <th scope="row">@item.ID</th>
+                <td>@item.Ten</td>
+                <td>@item.email</td>
+                <td>@item.sdt</td>
+                <td>@item.dc</td>
+                <td>@item.tinh</td>
+                <td>@item.quan</td>
+                <td>@item.ngaylap</td>
+                <td>@item.tt</td>
+                <td>@item.tiengiam</td>
+                <td>@{
+                            var thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);}
+                    <p>@thanhtien</p>
+                </td>
+                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })</td>
+            </tr>
                         }
                     }
                 }
             }
-        </tr>
+        }
         <tr>
         </tr>
     </tbody>

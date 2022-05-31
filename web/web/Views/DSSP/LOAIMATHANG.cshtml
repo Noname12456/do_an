@@ -3,7 +3,7 @@
 @using web.Models;
 @{
     ViewBag.Title = "LOAIMATHANG";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 <div class="row" style="margin-top: 20px">
     <div class="col-xl-3 col-md-3" style="border-right: 1px inset black">
@@ -33,12 +33,12 @@
                 {
                     foreach (var item in Model)
                     {
-                        link2 = "/LOAIMATHANG/" + item.MALOAIMH;
-                        link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                <div class="col-xl-3 col-sm-4 col-6">
+                        link2 = "/LOAIMATHANG/" + item.MALOAIMH.Replace(" ", "");
+                        link = "/CHITIETSP/CHITIETSP/" + item.MASP.Replace(" ", "");
+                <div class="col-xl-3 col-sm-4 col-12">
                     <div class="card">
                         <a href="@link">
-                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;margin-right:10px">
+                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
                                 <div class="text-center">
                                     @{
                         SANPHAMHINHANH SPH = new SANPHAMHINHANH();
@@ -51,12 +51,12 @@
                                     }
 
                                 </div>
-                                <p>@item.TENSP</p>
+                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                 <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                 <div style="margin-right: 10px">
                                     @using (Html.BeginForm("LOAIMATHANG", "DSSP", FormMethod.Post, new { @class = "" }))
                                     {
-                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                             Thêm giỏ hàng
                                         </button>
                                     }
@@ -71,9 +71,9 @@
                 {
                     foreach (var item in Model)
                     {
-                        link2 = "/LOAIMATHANG/" + item.MALOAIMH;
-                        link = "/CHITIETSP/CHITIETSP/" + item.MASP;
-                <div class="col-xl-6 col-sm-6 col-6">
+                        link2 = "/LOAIMATHANG/" + item.MALOAIMH.Replace(" ", "");
+                        link = "/CHITIETSP/CHITIETSP/" + item.MASP.Replace(" ", "");
+                <div class="col-xl-6 col-sm-6 col-12">
                     <div class="card">
                         <a href="@link">
                             <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
@@ -90,12 +90,12 @@
                                         }
                                     </div>
                                     <div class="col-xl-6">
-                                        <p>@item.TENSP</p>
+                                        <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
                                         <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
                                         <div style="margin-right: 10px">
                                             @using (Html.BeginForm("LOAIMATHANG", "Index", FormMethod.Post, new { @class = "" }))
                                             {
-                                                <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP" type="submit" style="border-radius:25px">
+                                                <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
                                                     Thêm giỏ hàng
                                                 </button>
                                             }
@@ -112,9 +112,14 @@
         </div>
         <div style="color: white; text-align: center">
             <p>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount</p>
-            <div class="pagination" style="color: black">
-                @Html.PagedListPager(Model, Page => Url.Action(link2, new { Page, @class = "", }))
-            </div>
+            <nav aria-label="Page navigation example">
+                <div class="pagination" style="color: black">
+                    @Html.PagedListPager(Model, Page => Url.Action(link2, new { Page }), new PagedListRenderOptions
+               {
+                   LiElementClasses = new List<string> { "page-item", "page-link" }
+               })
+                </div>
+            </nav>
         </div>
     </div>
 </div>

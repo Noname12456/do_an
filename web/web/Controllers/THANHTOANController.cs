@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using web.Models;
@@ -15,7 +17,7 @@ namespace web.Controllers
         {
             if (Session["GH"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Index");
             }
             return View();
         }
@@ -65,7 +67,7 @@ namespace web.Controllers
                     {
                         ViewBag.TB = "Đơn hàng chưa đủ điều kiện để áp dụng khuyến mãi";
                     }
-                    
+
                 }
                 if (dem == 0)
                 {
@@ -75,6 +77,7 @@ namespace web.Controllers
             if (!string.IsNullOrEmpty(thanhtoan))
             {
                 var tong = 0;
+                float tg = 0;
                 DONHANG hd = new DONHANG();
                 if ((Boolean)Session["log"] == false)
                 {
@@ -87,7 +90,7 @@ namespace web.Controllers
                     {
                         kq = hd.them2(hoten, email, sdt, td, ph, tp, qh);
                     }
-                   
+
                     if (kq != 0)
                     {
                         var menu = Session["GH"] as List<GIOHANG>;
@@ -112,18 +115,89 @@ namespace web.Controllers
                         }
                         if (Session["KM"] != null)
                         {
-                            float tg = 0;
                             if (int.Parse(Session["HTKM"].ToString()) == 1)
                             {
                                 tg = tong * (float.Parse(Session["KM"].ToString()) / 100);
                             }
                             else
                             {
-                                tg =int.Parse(Session["KM"].ToString());
+                                tg = int.Parse(Session["KM"].ToString());
                             }
                             int kq4 = hd.update2(tg);
                         }
                         Session["KM"] = null;
+                        var ma = hd.hd();
+                        try
+                        {
+                            if (ModelState.IsValid)
+                            {
+                                var tongCT = 0;
+                                SANPHAM sp = new SANPHAM();
+                                var senderEmail = new MailAddress("leemy12456@gmail.com", "Lê Thị Trà My");
+                                var receiverEmail = new MailAddress(email, hoten);
+                                var password = "***mymymy***123123123";
+                                var sub = "CẢM ƠN BẠN ĐÃ MUA HÀNG Ở NHÀ SÁCH MAHD: " + ma;
+                                var body = "<div class='text-center'>" +
+                                 "<h1>DANH SÁCH SẢN PHẨM</h1>";
+                                body += "<table class='table'>";
+                                var menuCT = hd.getData2(ma.ToString());
+                                foreach (var item in menuCT)
+                                {
+                                    body += "<tr><td></td><td>Tên sp</td><td>Giá</td><td>SL</td><td>Thành tiền</td></tr>";
+                                    body += "<tr> <td>";
+                                    var menu2 = sp.getDataCT(item.masp);
+                                    foreach (var item2 in menu2)
+                                    {
+                                        var thanhtien = int.Parse(item2.GIABAN) * int.Parse(item.sl);
+                                        tongCT += thanhtien;
+                                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                        var sanPhamHinh = SPH.getData(item2.MASP);
+                                        foreach (var itemHinh in sanPhamHinh)
+                                        {
+                                            var hinh = "/IMG/" + itemHinh.HINH;
+                                            body += "<img src=cid:" + hinh + " style='width:120px;height:120px' />";
+                                        }
+                                        body += "</td>" +
+                                            "<td>" + item2.TENSP + "</td>" +
+                                           "<td>" +
+                                              item2.GIABAN +
+                                          " </td>" +
+                                           "<td>" +
+                                              item.sl +
+                                           "</td>" +
+                                            "<td>" +
+                                               thanhtien + "VND" +
+                                           "</td>" +
+                                       "</tr>";
+                                    }
+                                }
+                                body += "<tr>" +
+                                            "<td colspan='3'>Tổng cộng</td>" +
+                                            "<td> " + tongCT + " </td>" +
+                                        "</tr> </table> </div>";
+                                var smtp = new SmtpClient
+                                {
+                                    Host = "smtp.gmail.com",
+                                    Port = 587,
+                                    EnableSsl = true,
+                                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                                    UseDefaultCredentials = false,
+                                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                                };
+                                using (MailMessage mess = new MailMessage(senderEmail, receiverEmail)
+                                {
+                                    Subject = sub,
+                                    Body = body,
+                                    IsBodyHtml = true
+                                })
+                                {
+                                    smtp.Send(mess);
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
                         return RedirectToAction("HOADON", "HOADON");
                     }
                 }
@@ -169,7 +243,6 @@ namespace web.Controllers
                         }
                         if (Session["KM"] != null)
                         {
-                            float tg = 0;
                             if (int.Parse(Session["HTKM"].ToString()) == 1)
                             {
                                 tg = tong * (float.Parse(Session["KM"].ToString()) / 100);
@@ -181,8 +254,81 @@ namespace web.Controllers
                             int kq4 = hd.update2(tg);
                         }
                         Session["KM"] = null;
-                        return RedirectToAction("HOADON", "HOADON");
+                        var ma2 = hd.hd();
+                        try
+                        {
+                            if (ModelState.IsValid)
+                            {
+                                var tongCT = 0;
+                                SANPHAM sp = new SANPHAM();
+                                var senderEmail = new MailAddress("leemy12456@gmail.com", "Lê Thị Trà My");
+                                var receiverEmail = new MailAddress(email, hoten);
+                                var password = "***mymymy***123123123";
+                                var sub = "CẢM ƠN BẠN ĐÃ MUA HÀNG Ở NHÀ SÁCH MAHD: " + ma;
+                                var body = "<div class='text-center'>" +
+                                 "<h1>DANH SÁCH SẢN PHẨM</h1>";
+                                body += "<table class='table'>";
+                                var menuCT = hd.getData2(ma.ToString());
+                                foreach (var item in menuCT)
+                                {
+                                    body += "<tr><td></td><td>Tên sp</td><td>Giá</td><td>SL</td><td>Thành tiền</td></tr>";
+                                    body += "<tr> <td>";
+                                    var menu2 = sp.getDataCT(item.masp);
+                                    foreach (var item2 in menu2)
+                                    {
+                                        var thanhtien = int.Parse(item2.GIABAN) * int.Parse(item.sl);
+                                        tongCT += thanhtien;
+                                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                        var sanPhamHinh = SPH.getData(item2.MASP);
+                                        foreach (var itemHinh in sanPhamHinh)
+                                        {
+                                            var hinh = "/IMG/" + itemHinh.HINH;
+                                            body += "<img src=cid:" + hinh + " style='width:120px;height:120px' />";
+                                        }
+                                        body += "</td>" +
+                                            "<td>" + item2.TENSP + "</td>" +
+                                           "<td>" +
+                                              item2.GIABAN +
+                                          " </td>" +
+                                           "<td>" +
+                                              item.sl +
+                                           "</td>" +
+                                            "<td>" +
+                                               thanhtien + "VND" +
+                                           "</td>" +
+                                       "</tr>";
+                                    }
+                                }
+                                body += "<tr>" +
+                                            "<td colspan='3'>Tổng cộng</td>" +
+                                            "<td> " + tongCT + " </td>" +
+                                        "</tr> </table> </div>";
+                                var smtp = new SmtpClient
+                                {
+                                    Host = "smtp.gmail.com",
+                                    Port = 587,
+                                    EnableSsl = true,
+                                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                                    UseDefaultCredentials = false,
+                                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                                };
+                                using (MailMessage mess = new MailMessage(senderEmail, receiverEmail)
+                                {
+                                    Subject = sub,
+                                    Body = body,
+                                    IsBodyHtml = true
+                                })
+                                {
+                                    smtp.Send(mess);
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            
+                        }
                     }
+                    return RedirectToAction("HOADON", "HOADON");
                 }
             }
             return View();

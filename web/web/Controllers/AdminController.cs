@@ -78,6 +78,7 @@ namespace web.Controllers
         }
         public ActionResult DONHANG()
         {
+            Session["erro"] = "";
             if ((Boolean)Session["logad"] == false)
             {
                 return RedirectToAction("Admin", "Admin");
@@ -234,6 +235,7 @@ namespace web.Controllers
         public ActionResult CTHOADON(string id, string xn, string gh, string huy, string nh, string knh, string xnhuy,string cn)
         {
             DONHANG hd = new DONHANG();
+            Session["erro"] = "";
             var maad = "";
             if ((Boolean)Session["logad"] == true)
             {
