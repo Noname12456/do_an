@@ -17,6 +17,7 @@ namespace web.Models
         public string MK { get; set; }
         public string Email { get; set; }
         public string SDT { get; set; }
+        public int DiemTL { get; set; }
         public int them(string ho, string ten, string sdt, string email, string mk)
         {
             int dr = 0;
@@ -40,6 +41,42 @@ namespace web.Models
             return dr;
 
         }
+        public int update(string email, string mk)
+        {
+            int dr = 0;
+            SqlConnection con = new SqlConnection(conf);
+            SqlCommand cmd = new SqlCommand("update KHACHHANG set matkhau = '" + mk + "' where email= '" + email + "'", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            dr = cmd.ExecuteNonQuery();
+            con.Close();
+            return dr;
+
+        }
+        public int updateDiem1(string email)
+        {
+            int dr = 0;
+            SqlConnection con = new SqlConnection(conf);
+            SqlCommand cmd = new SqlCommand("update KHACHHANG set DIEMTL = 0 where email= '" + email + "'", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            dr = cmd.ExecuteNonQuery();
+            con.Close();
+            return dr;
+
+        }
+        public int updateDiem(string email,int diem)
+        {
+            int dr = 0;
+            SqlConnection con = new SqlConnection(conf);
+            SqlCommand cmd = new SqlCommand("update KHACHHANG set DIEMTL = DIEMTL + " + diem + " where email= '" + email + "'", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            dr = cmd.ExecuteNonQuery();
+            con.Close();
+            return dr;
+
+        }
         public List<KHACHHANG> getData(string email)
         {
             List<KHACHHANG> listBH = new List<KHACHHANG>();
@@ -54,10 +91,26 @@ namespace web.Models
                 emp.ID = Convert.ToInt32(dr.GetValue(0).ToString());
                 emp.Ho = dr.GetValue(1).ToString();
                 emp.Ten = dr.GetValue(2).ToString();
+                emp.DiemTL = int.Parse(dr.GetValue(8).ToString());
                 listBH.Add(emp);
             }
             con.Close();
             return listBH;
+        }
+        public int getDataTL(string email)
+        {
+            int diem = 0;
+            SqlConnection con = new SqlConnection(conf);
+            SqlCommand cmd = new SqlCommand("select * from KHACHHANG where email='" + email + "'", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                diem = int.Parse(dr.GetValue(8).ToString());
+            }
+            con.Close();
+            return diem;
         }
         public List<KHACHHANG> getData()
         {

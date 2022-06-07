@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "DSPHIEUNHAP";
+    ViewBag.Title = "DSPHIEUXUAT";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 @using web.Models;
@@ -9,10 +9,6 @@
     }
 </style>
 @{
-    LOAICHUDE lcd = new LOAICHUDE();
-    NHACC ncc = new NHACC();
-    NXB nxb = new NXB();
-    TACGIA tg = new TACGIA();
     LOAIQUYENOFNHANVIEN quyen = new LOAIQUYENOFNHANVIEN();
 }
 <table id="example" class="table" style="margin-top: 15px">
@@ -22,33 +18,17 @@
             </td>
             <td>Mã phiếu
             </td>
-            <td>Số HĐ
+            <td>Ngày xuất
             </td>
-            <td>Ký hiệu
+            <td>Nơi xuất
             </td>
-            <td>Mẫu HĐ
+            <td>Nơi nhận
             </td>
-            <td>Ngày nhập
+            <td>Ghi chú
             </td>
-            <td>Ngày HĐ
+            <td>Người tạo
             </td>
-            <td>Ngày nhận
-            </td>
-            <td>Chi Nhánh
-            </td>
-            <td>Tổng
-            </td>
-            <td>VAT
-            </td>
-            <td>Tiền VAT
-            </td>
-            <td>Thành tiền
-            </td>
-            <td>Ghi chú
-            </td>
-            <td>Người tạo
-            </td>
-            <td>Ngày tạo
+            <td>Ngày tạo
             </td>
             <td>Trạng thái
             </td>
@@ -57,7 +37,7 @@
     </thead>
     <tbody>
         @{
-            PHIEUNHAP sp = new PHIEUNHAP();
+            PHIEUXUAT sp = new PHIEUXUAT();
             var menuSp = sp.getData();
             var i = 1;
             foreach (var item in menuSp)
@@ -67,36 +47,20 @@
                 </td>
                 <td>@item.MAPHIEU
                 </td>
-                <td>@item.SOHD
-                </td>
-                <td>@item.KYHIEU
-                </td>
-                <td>@item.KYHIEUMAU
-                </td>
-                <td>@item.NGAYNHAP
-                </td>
-                <td>@item.NGAYHD
-                </td>
-                <td>@item.NGAYNHANHD
+                <td>@item.NGAYXUAT
                 </td>
                 <td>@{
                 CHINHANH cn = new CHINHANH();
-                var itemCn = cn.getData3(item.MACN);
+                var itemCn = cn.getData3(item.MACNXUAT);
                 var tencn = "";
                 foreach (var item2 in itemCn)
                 {
                     tencn = item2.Ten;
                 }
                 }
-                    @tencn;
+                    @tencn
                 </td>
-                <td>@item.TONG
-                </td>
-                <td>@item.VAT
-                </td>
-                <td>@item.TIENVAT
-                </td>
-                <td>@item.THANHTIENVAT
+                <td>@item.NOINHAN
                 </td>
                 <td>@item.GHICHU
                 </td>
@@ -110,11 +74,11 @@
                 {
                     tt = "Phiếu mới tạo";
                 }
-                else if (int.Parse(item.TRANGTHAI) == 1)
+                else if (int.Parse(item.TRANGTHAI) == 6)
                 {
-                    tt = "Đã nhập kho";
+                    tt = "Đã xuất kho";
                 }
-                else
+                else if (int.Parse(item.TRANGTHAI) == 7)
                 {
                     tt = "Đã hủy";
                 }
@@ -123,8 +87,8 @@
                 </td>
                 <td>
                     @{
-                var link = "/Admin/CNPHIEUNHAP/" + @item.MAPHIEU;
-                var link2 = "/Admin/CTPHIEUNHAP/" + @item.MAPHIEU;
+                var link = "/Admin/CNPHIEUXUAT/" + @item.MAPHIEU;
+                var link2 = "/Admin/CTPHIEUXUAT/" + @item.MAPHIEU;
                     }
                     @{
                         
@@ -135,9 +99,9 @@
                                 Thao tác
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "duyet_phieu_nhap") == 1 || Session["maad"].ToString().Equals("admin"))
+                                @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "duyet_phieu_xuat") == 1 || Session["maad"].ToString().Equals("admin"))
                                 {
-                                    using (Html.BeginForm("DSPHIEUNHAP", "Admin", FormMethod.Post, new { @class = "" }))
+                                    using (Html.BeginForm("DSXUATKHAC", "Admin", FormMethod.Post, new { @class = "" }))
                                 {
                                     <a class="dropdown-item">
                                         <button type="submit" class="btn btn-outline-danger" name="Huy" value="@item.MAPHIEU">
@@ -155,7 +119,7 @@
                                     </a>
                                 }
                                 }
-                                @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "cn_phieu_nhap") == 1 || Session["maad"].ToString().Equals("admin"))
+                                @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "cn_phieu_xuat") == 1 || Session["maad"].ToString().Equals("admin"))
                                 {
                                     <a href="@link" class="dropdown-item">Cập nhật</a>
                                 }
@@ -182,3 +146,4 @@
         }
     </tbody>
 </table>
+

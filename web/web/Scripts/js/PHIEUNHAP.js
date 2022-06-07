@@ -45,6 +45,7 @@ $(document).ready(function () {
             select: function (event, ui) {
                 var order = parseInt($(this).attr('order'));
                 $('#detail' + order + 'Code').text(ui.item.MASP);
+                $('#detail' + order + 'SLT').text(ui.item.SLTON);
                 $(this).val(ui.item.TENSP);
             }
         })
@@ -64,23 +65,23 @@ $(document).ready(function () {
             return;
         }
         var data_list = [];
-        var row = $('#table2 tr').length;
+        var row = $('#table2 tbody tr').length;
         for (var i = 0; i < row; i++) {
             if ($('#detail' + i + 'Code').text() != "") {
                 if ($('#detail' + i + 'SL').val() == "" || $('#detail' + i + 'TT').val() == "" || $('#detail' + i + 'TTVAT').text() == "" || $('#detail' + i + 'DG').text() == "" || $('#detail' + i + 'DGVAT').text() == "") {
-                    $('#erro').text('Vui lòng sản phẩm');
+                    $('#erro').text('Vui lòng thêm sản phẩm');
                     return;
                 }
             }
             if ($('#detail' + i + 'SL').text() != "") {
                 if ($('#detail' + i + 'Code').text() == "" || $('#detail' + i + 'TT').val() == "" || $('#detail' + i + 'TTVAT').text() == "" || $('#detail' + i + 'DG').text() == "" || $('#detail' + i + 'DGVAT').text() == "") {
-                    $('#erro').text('Vui lòng sản phẩm');
+                    $('#erro').text('Vui lòng thêm sản phẩm');
                     return;
                 }
             }
             if ($('#detail' + i + 'TT').text() != "") {
                 if ($('#detail' + i + 'Code').text() == "" || $('#detail' + i + 'TTVAT').text() == "" || $('#detail' + i + 'DG').text() == "" || $('#detail' + i + 'DGVAT').text() == "") {
-                    $('#erro').text('Vui lòng sản phẩm');
+                    $('#erro').text('Vui lòng thêm sản phẩm');
                     return;
                 }
             }
@@ -96,7 +97,7 @@ $(document).ready(function () {
             }
         }
         if (data_list.length == 0) {
-            $('#erro').text('Vui lòng sản phẩm');
+            $('#erro').text('Vui lòng thêm sản phẩm');
             return;
         }
         var data = {
@@ -224,7 +225,6 @@ function suaphieu(ma) {
         $('#erro').text('Vui lòng sản phẩm');
         return;
     }
-    console.log(ma);
     var data = {
         ma: ma,
         ncc: $('#ncc').val(),

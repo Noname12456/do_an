@@ -196,6 +196,40 @@ namespace web.Controllers
             Session["PN"] = id;
             return View();
         }
+        public ActionResult CTPHIEUXUAT(string id)
+        {
+            if ((Boolean)Session["logad"] == false)
+            {
+                return RedirectToAction("Admin", "Admin");
+            }
+            Session["PN"] = id;
+            return View();
+        }
+        public ActionResult CNPHIEUXUAT(string id)
+        {
+            if ((Boolean)Session["logad"] == false)
+            {
+                return RedirectToAction("Admin", "Admin");
+            }
+            Session["PN"] = id;
+            return View();
+        }
+        public ActionResult XUATKHAC()
+        {
+            if ((Boolean)Session["logad"] == false)
+            {
+                return RedirectToAction("Admin", "Admin");
+            }
+            return View();
+        }
+        public ActionResult DSXUATKHAC()
+        {
+            if ((Boolean)Session["logad"] == false)
+            {
+                return RedirectToAction("Admin", "Admin");
+            }
+            return View();
+        }
         public ActionResult QUYEN()
         {
             if ((Boolean)Session["logad"] == false)
@@ -297,6 +331,25 @@ namespace web.Controllers
                 hd.update2(Duyet, maad);
             }
             return RedirectToAction("DSPHIEUNHAP", "Admin");
+        }
+        [HttpPost]
+        public ActionResult DSXUATKHAC(string Huy, string Duyet)
+        {
+            PHIEUXUAT hd = new PHIEUXUAT();
+            var maad = "";
+            if ((Boolean)Session["logad"] == true)
+            {
+                maad = Session["maad"].ToString(); ;
+            }
+            if (!string.IsNullOrEmpty(Huy))
+            {
+                hd.update1(Huy, maad);
+            }
+            if (!string.IsNullOrEmpty(Duyet))
+            {
+                hd.update2(Duyet, maad);
+            }
+            return RedirectToAction("DSXUATKHAC", "Admin");
         }
         [HttpPost]
         public ActionResult Admin(string them, string email, string matkhau)
@@ -1651,6 +1704,80 @@ namespace web.Controllers
             var TTVAT = jsonCart["TTVAT"];
             PHIEUNHAP PN = new PHIEUNHAP();
             PN.themCT(maphieu, masp, DG, DGVAT, TT, TTVAT, SL);
+            return Json(new
+            {
+                status = true,
+            });
+        }
+        public JsonResult THEMPHIEUXUAT(string cartModel)
+        {
+            //tạo 1 đối tượng dạng json
+            var jsonCart = new JavaScriptSerializer().Deserialize<dynamic>(cartModel);
+            var ngayxuat = jsonCart["ngayxuat"];
+            var cn = jsonCart["cn"];
+            var ghichu = jsonCart["ghichu"];
+            var nn = jsonCart["nn"];
+            var nguoitao = Session["maad"].ToString();
+            PHIEUXUAT PN = new PHIEUXUAT();
+            PN.them(cn, nn, ghichu, ngayxuat, nguoitao);
+            return Json(new
+            {
+                status = true,
+                ID = PN.LayId()
+            });
+        }
+        public JsonResult THEMPHIEUXUATCT(string cartModel)
+        {
+            //tạo 1 đối tượng dạng json
+            var jsonCart = new JavaScriptSerializer().Deserialize<dynamic>(cartModel);
+            var maphieu = jsonCart["maphieu"];
+            var masp = jsonCart["masp"];
+            var SL = jsonCart["SL"];
+            var GC = jsonCart["GhiChu"];
+            PHIEUXUAT PN = new PHIEUXUAT();
+            PN.themCT(maphieu, masp, SL, GC);
+            return Json(new
+            {
+                status = true,
+            });
+        }
+        public JsonResult UPPHIEUXUAT(string cartModel)
+        {
+            //tạo 1 đối tượng dạng json
+            var jsonCart = new JavaScriptSerializer().Deserialize<dynamic>(cartModel);
+            var maphieu = jsonCart["ma"];
+            var ngayxuat = jsonCart["ngayxuat"];
+            var cn = jsonCart["cn"];
+            var ghichu = jsonCart["ghichu"];
+            var nn = jsonCart["nn"];
+            var nguoitao = Session["maad"].ToString();
+            PHIEUXUAT PN = new PHIEUXUAT();
+            PN.update(maphieu, cn, nn, ghichu, ngayxuat, nguoitao);
+            PN.updateAll(maphieu);
+            return Json(new
+            {
+                status = true,
+            });
+        }
+        public JsonResult UPPHIEUXUATCT(string cartModel)
+        {
+            //tạo 1 đối tượng dạng json
+            var jsonCart = new JavaScriptSerializer().Deserialize<dynamic>(cartModel);
+            var maphieu = jsonCart["maphieu"];
+            var masp = jsonCart["masp"];
+            var SL = jsonCart["SL"];
+            var GC = jsonCart["GhiChu"];
+            PHIEUXUAT PN = new PHIEUXUAT();
+            var kq = PN.KtraSpPhieu(maphieu, masp);
+            if (kq == 0)
+            {
+                PN.themCT(maphieu, masp, SL, GC);
+            }
+            else
+            {
+                PN.updateCTPhieus(maphieu, masp, SL, GC);
+            }
+
             return Json(new
             {
                 status = true,

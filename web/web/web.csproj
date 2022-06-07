@@ -159,6 +159,7 @@
     <Compile Include="Models\NXB.cs" />
     <Compile Include="Models\PHIEUNHAP.cs" />
     <Compile Include="Models\PHIEUNHAPCT.cs" />
+    <Compile Include="Models\PHIEUXUAT.cs" />
     <Compile Include="Models\QUANGCAO.cs" />
     <Compile Include="Models\QUYEN.cs" />
     <Compile Include="Models\SANPHAM.cs" />
@@ -304,6 +305,7 @@
     <Content Include="Scripts\js\KHUYENMAI.js" />
     <Content Include="Scripts\js\PHIEUNHAP.js" />
     <Content Include="Scripts\js\QUYEN.js" />
+    <Content Include="Scripts\js\XUATKHAC.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\js\LOAICHUDE.js" />
@@ -374,6 +376,11 @@
     <Content Include="Views\Admin\LOAIQUYEN.cshtml" />
     <Content Include="Views\Admin\LOAIQUYENOFQUYEN.cshtml" />
     <Content Include="Views\Admin\LOAIQUYENOFNHANVIEN.cshtml" />
+    <Content Include="Views\DANGNHAP\DOIMATKHAU.cshtml" />
+    <Content Include="Views\Admin\XUATKHAC.cshtml" />
+    <Content Include="Views\Admin\DSXUATKHAC.cshtml" />
+    <Content Include="Views\Admin\CTPHIEUXUAT.cshtml" />
+    <Content Include="Views\Admin\CNPHIEUXUAT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

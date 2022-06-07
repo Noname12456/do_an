@@ -119,7 +119,7 @@ namespace web.Models
         {
             List<SPCHINHANH> listBH = new List<SPCHINHANH>();
             SqlConnection con = new SqlConnection(conf);
-            SqlCommand cmd = new SqlCommand("select sanpham.masp,tensp,sanphamcn.slton from Sanpham,SANPHAMCN where sanpham.masp = sanphamcn.masp and sanpham.disabled = 0 and sanphamcn.disabled = 0 and SANPHAMCN.macn='" + macn + "' and tensp like N'%" + ten + "%'", con);
+            SqlCommand cmd = new SqlCommand("select sanpham.masp,tensp,sanphamcn.slton from Sanpham,SANPHAMCN where sanpham.masp = sanphamcn.masp and sanpham.disabled = 0 and sanphamcn.disabled = 0 and SANPHAMCN.macn='" + macn + "' and tensp like N'%" + ten + "%' or SANPHAMCN.masp = N'%" + ten + "%' ", con);
             cmd.CommandType = CommandType.Text;
             con.Open();
             SqlDataReader dr = cmd.ExecuteReader();
@@ -133,6 +133,20 @@ namespace web.Models
             }
             con.Close();
             return listBH;
+        }
+        public int getDataSL(string ten, string macn)
+        {
+            int sl = 0;
+            SqlConnection con = new SqlConnection(conf);
+            SqlCommand cmd = new SqlCommand("select sanpham.masp,tensp,sanphamcn.slton from Sanpham,SANPHAMCN where sanpham.masp = sanphamcn.masp and sanpham.disabled = 0 and sanphamcn.disabled = 0 and SANPHAMCN.macn='" + macn + "' and tensp like N'%" + ten + "%' or SANPHAMCN.masp like N'%" + ten + "%' ", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read()){
+                sl = int.Parse(dr.GetValue(2).ToString());
+            }
+            con.Close();
+            return sl;
         }
         public void updateSLDH(string ma, int SL, string macn)
         {

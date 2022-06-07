@@ -131,6 +131,7 @@
                         <input type="text " class="form-control" placeholder="Số nhà, tên đường" name="td" required>
                     </div>
                 </div>
+                <input type="text" id="textchk" onclick="checkDTL()" name="chk" hidden/>
                 <div class="row" style="margin-top: 10px">
                     <div class="col-6">
                         <a href="/GIOHANG/GIOHANG">Giỏ hàng</a>
@@ -151,7 +152,9 @@
                             if (int.Parse(Session["HTKM"].ToString()) == 1)
                             {
                                 tong2 = int.Parse(ViewBag.TT);
-                            } else {
+                            }
+                            else
+                            {
                                 tong2 = int.Parse(ViewBag.TT);
                             }
                         }
@@ -190,17 +193,17 @@
                         var tienKM = 0;
                         if (int.Parse(Session["HTKM"].ToString()) == 1)
                         {
-                            thanhtien1 = @tong - (@tong * @tong2/100);
+                            thanhtien1 = @tong - (@tong * @tong2 / 100);
                             tienKM = (@tong * @tong2 / 100);
                         }
                         else
                         {
                             if (ViewBag.TT != null)
                             {
-                                tienKM = ViewBag.TT;
+                                tienKM = int.Parse(ViewBag.TT);
                             }
                             thanhtien1 = @tong - @tong2;
-                            
+
                         }
                     }
                 </tbody>
@@ -232,6 +235,23 @@
                 <label class="col-6 text-right">
                     - @tienKM.ToString("N0") VND
                 </label>
+                @{
+                    if ((Boolean)Session["log"] == true)
+                    {
+                    <label class="col-6">
+                        Xu
+                    </label>
+                    <label class="col-6 text-right">
+                        -
+                        @{
+                        KHACHHANG kh = new KHACHHANG();
+                        var diem = kh.getDataTL(Session["Email"].ToString());
+                        }
+                       <span id="textDiem">@diem.ToString("N0")</span> VND
+                           <input type="checkbox" id="chk" onclick="checkDTL()" name="chk2"/>
+                    </label>
+                    }
+                }
             </div>
             <hr />
             <div class="row">
@@ -239,7 +259,8 @@
                     Thành tiền
                 </label>
                 <label class="col-6 text-right">
-                    @thanhtien1.ToString("N0") VND
+                    <span id="textTT"> @thanhtien1.ToString("N0")</span> 
+                    <input type="text" value="@thanhtien1" id="thanhtien1" hidden name="thanhtien1"/>
                 </label>
             </div>
         </div>
@@ -314,5 +335,25 @@
                 })
             })
         })
-        //]]></script>
+        //]]>
+        function checkDTL() {
+            // Get the checkbox
+            var checkBox = document.getElementById("chk");
+            // Get the output text
+            var text = document.getElementById("thanhtien1");
+            // If the checkbox is checked, display the output text
+            console.log();
+            if (checkBox.checked == true) {
+                var tong = $('#thanhtien1').val() - $('#textDiem').text().replace(',', '');
+                $('#textTT').text(tong.toLocaleString('en-US'));
+                $('#thanhtien1').val(tong);
+                $('#textchk').val(1);
+            } else {
+                var tong = Number($('#thanhtien1').val()) + Number($('#textDiem').text().replace(',', ''));
+                $('#textTT').text(tong.toLocaleString('en-US'));
+                $('#thanhtien1').val(tong);
+                $('#textchk').val(0);
+            }
+        }
+    </script>
 </div>

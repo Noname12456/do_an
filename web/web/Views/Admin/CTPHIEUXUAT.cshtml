@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "PHIEUNHAP";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<style>
+    .ui-helper-hidden-accessible {
+        display: none;
+    }
+</style>
+@using web.Models;
+@{
+    CHINHANH cn = new CHINHANH();
+    PHIEUXUAT pn = new PHIEUXUAT();
+    var menupn = pn.getDataCT(Session["PN"].ToString());
+    var ma = "";
+}
+<div class="row">
+    @{
+        foreach (var item in menupn)
+        {
+        <div class="col-xl-1">
+            Mã Phiếu
+        </div>
+        <div class="col-xl-2">
+            @item.MAPHIEU
+        </div>
+        <div class="col-xl-1">
+            Người nhập
+        </div>
+        <div class="col-xl-2">
+            @item.NGUOITAO
+        </div>
+        <div class="col-xl-1">
+            Ngày xuat
+        </div>
+        <div class="col-xl-2">
+            <input type="text" class="w-100 form-control" id="ngayxuat" disabled  value="@item.NGAYXUAT"/>
+        </div>
+        <div class="col-xl-1">
+            Nơi xuất
+        </div>
+        <div class="col-xl-2">
+            <select class="select2 w-100 form-control" id="cn" disabled>
+                @{
+            var menu2 = cn.getData2();
+            foreach (var item2 in menu2)
+            {
+                var selected = "";
+                if (item.MACNXUAT.Equals(item2.ID))
+                {
+                    selected = "selected='selected'";
+                }
+                    <option value="@item2.ID" @selected>@item2.Ten</option>   
+            }
+                }
+            </select>
+        </div>
+        <div class="col-xl-1">
+            Nơi Nhận
+        </div>
+        <div class="col-xl-2">
+            <input type="text" class="w-100 form-control" id="nn" disabled value="@item.NOINHAN"/>
+        </div>
+        <div class="col-xl-1">
+            Ghi chú
+        </div>
+        <div class="col-xl-2">
+            <input type="text" class="w-100 form-control" id="ghichu" disabled value="@item.GHICHU"/>
+        </div>
+        }
+    }
+</div>
+<div>
+    <h3>CHI TIẾT PHIẾU XUẤT KHÁC</h3>
+    <table class="table" id="table3">
+        <thead>
+            <tr>
+                <td>STT</td>
+                <td>MÃ SP</td>
+                <td>Tên SP</td>
+                <td>SL</td>
+                <td>Ghi chú</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var menuItem = pn.getDataCTPHIEU(Session["PN"].ToString());
+                var i = 0;
+                foreach (var item in menuItem)
+                {
+                    var deltailCode = "detail" + i + "Code";
+                    var deltailName = "detail" + i + "ItemName";
+                    var deltailSL = "detail" + i + "SL";
+                    var deltailSLT = "detail" + i + "SLT";
+                    var deltailGC = "detail" + i + "GC";
+                    var stt = i + 1;
+                <tr>
+                    <td>@stt</td>
+                    <td><strong order="@i" id="@deltailCode">@item.MASP</strong></td>
+                    <td>@item.NAME</td>
+                    <td>
+                       @item.SL
+                    </td>
+                    <td>
+                        @item.GHICHU
+                    </td>
+                </tr>
+                    i++;
+                }
+                
+            }
+        </tbody>
+    </table>
+</div>

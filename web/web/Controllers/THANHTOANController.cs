@@ -22,9 +22,10 @@ namespace web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult THANHTOAN(string thanhtoan, string km, string txt_km, string hoten, string email, string sdt, string tp, string qh, string ph, string td)
+        public ActionResult THANHTOAN(string thanhtoan, string km, string txt_km, string hoten, string email, string sdt, string tp, string qh, string ph, string td, string chk)
         {
             var hinhthuc = 0;
+            var diem = 0;
             if (!string.IsNullOrEmpty(km))
             {
                 KHUYENMAI km1 = new KHUYENMAI();
@@ -133,9 +134,9 @@ namespace web.Controllers
                             {
                                 var tongCT = 0;
                                 SANPHAM sp = new SANPHAM();
-                                var senderEmail = new MailAddress("leemy12456@gmail.com", "Lê Thị Trà My");
+                                var senderEmail = new MailAddress("linhly12468@gmail.com", "Lê Thị Trà My");
                                 var receiverEmail = new MailAddress(email, hoten);
-                                var password = "***mymymy***123123123";
+                                var password = "***joker***154";
                                 var sub = "CẢM ƠN BẠN ĐÃ MUA HÀNG Ở NHÀ SÁCH MAHD: " + ma;
                                 var body = "<div class='text-center'>" +
                                  "<h1>DANH SÁCH SẢN PHẨM</h1>";
@@ -205,6 +206,11 @@ namespace web.Controllers
                 {
                     KHACHHANG m = new KHACHHANG();
                     var kh = m.getData(Session["Email"].ToString());
+                    if (chk.Equals("1"))
+                    {
+                        diem = m.getDataTL(Session["Email"].ToString());
+                        m.updateDiem1(Session["Email"].ToString());
+                    }
                     int ma = 0;
                     foreach (var item in kh)
                     {
@@ -245,14 +251,20 @@ namespace web.Controllers
                         {
                             if (int.Parse(Session["HTKM"].ToString()) == 1)
                             {
-                                tg = tong * (float.Parse(Session["KM"].ToString()) / 100);
+                                tg = tong * (float.Parse(Session["KM"].ToString()) / 100) + diem;
                             }
                             else
                             {
-                                tg = int.Parse(Session["KM"].ToString());
+                                tg = int.Parse(Session["KM"].ToString()) + diem;
                             }
                             int kq4 = hd.update2(tg);
                         }
+                        else {
+                            tg = diem;
+                            int kq4 = hd.update2(tg);
+                        }
+                        int diemtl = int.Parse(((tong-tg)/100).ToString());
+                        m.updateDiem(Session["Email"].ToString(), diemtl);
                         Session["KM"] = null;
                         var ma2 = hd.hd();
                         try
@@ -264,11 +276,11 @@ namespace web.Controllers
                                 var senderEmail = new MailAddress("leemy12456@gmail.com", "Lê Thị Trà My");
                                 var receiverEmail = new MailAddress(email, hoten);
                                 var password = "***mymymy***123123123";
-                                var sub = "CẢM ƠN BẠN ĐÃ MUA HÀNG Ở NHÀ SÁCH MAHD: " + ma;
+                                var sub = "CẢM ƠN BẠN ĐÃ MUA HÀNG Ở NHÀ SÁCH MAHD: " + ma2;
                                 var body = "<div class='text-center'>" +
                                  "<h1>DANH SÁCH SẢN PHẨM</h1>";
                                 body += "<table class='table'>";
-                                var menuCT = hd.getData2(ma.ToString());
+                                var menuCT = hd.getData2(ma2.ToString());
                                 foreach (var item in menuCT)
                                 {
                                     body += "<tr><td></td><td>Tên sp</td><td>Giá</td><td>SL</td><td>Thành tiền</td></tr>";

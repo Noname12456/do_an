@@ -183,6 +183,14 @@
                         {
                         <li class="list-group-item"><a href="/Admin/LOAIQUYEN">LOẠI QUYỀN</a></li>
                         }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_xuatkhac") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                        <li class="list-group-item"><a href="/Admin/XUATKHAC">XUẤT KHÁC</a></li>
+                        }
+                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dsxuatkhac") == 1 || Session["maad"].ToString().Equals("admin"))
+                        {
+                        <li class="list-group-item"><a href="/Admin/DSXUATKHAC">DANH SÁCH XUẤT KHÁC</a></li>
+                        }
                     }
                 </ul>
             </div>
@@ -205,15 +213,6 @@
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#img_0').hide();
-        $('#imgsua_0').hide();
-        $('.select2').select2();
-        $('#example').DataTable();
-        document.getElementById('ngaynhap').valueAsDate = new Date();
-        document.getElementById('ngayhd').valueAsDate = new Date();
-        document.getElementById('ngaynhan').valueAsDate = new Date();
-    });
     function date(date) {
         var datecat = date.split("/");
         return datecat[2] + '-' + datecat[1] + '-' + datecat[0];
@@ -388,6 +387,7 @@
 <script src="~/Scripts/js/PHIEUNHAP.js" type="text/javascript"></script>
 <script src="~/Scripts/js/QUYEN.js" type="text/javascript"></script>
 <script src="~/Scripts/js/LOAIQUYEN.js" type="text/javascript"></script>
+<script src="~/Scripts/js/XUATKHAC.js" type="text/javascript"></script>
 <script type="text/javascript">
     $('#themImgSua').off('click').on('click', function () {
         var table = document.getElementById("table2");

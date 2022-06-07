@@ -22,6 +22,17 @@ namespace web.Controllers
                 return RedirectToAction("Index", "Index");
             }
         }
+        public ActionResult DoiMatKhau()
+        {
+            if ((Boolean)Session["log"] == true)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Index");
+            }
+        }
         public ActionResult DangXuat()
         {
             if ((Boolean)Session["log"] == true)
@@ -105,6 +116,33 @@ namespace web.Controllers
                     Session["Email"] = email;
                     return RedirectToAction("Index", "Index");
                 }
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DoiMatKhau(string matkhaucu, string matkhaumoi, string matkhaulap,string doi)
+        {
+            if (!string.IsNullOrEmpty(doi))
+            {
+                KHACHHANG kh = new KHACHHANG();
+                int kq = kh.getData(Session["Email"].ToString(), matkhaucu);
+                if (kq == 0)
+                {
+                    ViewBag.TB = "Tài Khoản mật khẩu sai";
+                }
+                else
+                {
+                    if (matkhaumoi.Equals(matkhaulap))
+                    {
+                        kh.update(Session["Email"].ToString(), matkhaulap);
+                        return RedirectToAction("Index", "Index");
+                    }
+                    else
+                    {
+                        ViewBag.TB = "Mật khẩu không khớp";
+                    }
+                    return View();
+                }            
             }
             return View();
         }
