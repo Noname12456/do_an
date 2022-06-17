@@ -1,0 +1,21 @@
+﻿.menu2 {
+display:none;
+}
+.menu1:hover +.menu2 {
+    display:block;
+}
+.megasubmenu{ padding:1rem; }
+
+/* ============ desktop view ============ */
+@media all and (min-width: 992px) {
+	.megasubmenu{ 
+		left:100%; top:0; min-height: 100%; min-width:50rem;
+	}
+	
+	.dropdown-menu > li:hover .megasubmenu{
+		display: block;
+	}
+}
+a {
+text-decoration:none;
+}

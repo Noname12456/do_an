@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "HTHOADON";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@using web.Models;
+@using (Html.BeginForm("HTHOADON", "HOADON", FormMethod.Post, new { @class = "" }))
+{
+    <div class="input-group mb-3 col-3">
+        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" required name="Search">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">MAHD</th>
+            <th scope="col">Ho Ten</th>
+            <th scope="col">Email</th>
+            <th scope="col">SDT</th>
+            <th scope="col">DC</th>
+            <th scope="col">Tỉnh</th>
+            <th scope="col">Quận</th>
+            <th scope="col">Ngày lập</th>
+            <th scope="col">Thành tiền</th>
+            <th scope="col">Tiền giảm</th>
+            <th scope="col">Tổng tiền</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if ((Boolean)Session["log"] == true)
+            {
+                if (Session["HD"] != null)
+                {
+                    var menu = Session["HD"] as List<DONHANG>;
+                    if (!menu.Equals(0))
+                    {
+                        foreach (var item in menu)
+                        {
+            <tr>
+                <th scope="row">@item.ID</th>
+                <td>@item.Ten</td>
+                <td>@item.email</td>
+                <td>@item.sdt</td>
+                <td>@item.dc</td>
+                <td>@item.tinh</td>
+                <td>@item.quan</td>
+                <td>@item.ngaylap</td>
+                <td>@item.tt</td>
+                <td>@item.tiengiam</td>
+                <td>@{
+                            var thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);}
+                    <p>@thanhtien</p>
+                </td>
+                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })</td>
+            </tr>
+                        }
+                    }
+                }
+                else
+                {
+                    KHACHHANG m = new KHACHHANG();
+                    var kh = m.getData(Session["Email"].ToString());
+                    int ma = 0;
+                    foreach (var item in kh)
+                    {
+                        ma = item.ID;
+                    }
+                    DONHANG hd = new DONHANG();
+                    var menu1 = hd.getData(ma);
+                    foreach (var item in menu1)
+                    {
+            <tr>
+                <th scope="row">@item.ID</th>
+                <td>@item.Ten</td>
+                <td>@item.email</td>
+                <td>@item.sdt</td>
+                <td>@item.dc</td>
+                <td>@item.tinh</td>
+                <td>@item.quan</td>
+                <td>@item.ngaylap</td>
+                <td>@item.tt</td>
+                <td>@item.tiengiam</td>
+                <td>@{
+                        int thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);
+                }
+                    <p>@thanhtien</p>
+                </td>
+                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })</td>
+            </tr>
+                    }
+                }
+            }
+            else
+            {
+                if (Session["HD"] != null)
+                {
+                    var menu = Session["HD"] as List<DONHANG>;
+                    if (!menu.Equals(0))
+                    {
+                        foreach (var item in menu)
+                        {
+            <tr>
+                <th scope="row">@item.ID</th>
+                <td>@item.Ten</td>
+                <td>@item.email</td>
+                <td>@item.sdt</td>
+                <td>@item.dc</td>
+                <td>@item.tinh</td>
+                <td>@item.quan</td>
+                <td>@item.ngaylap</td>
+                <td>@item.tt</td>
+                <td>@item.tiengiam</td>
+                <td>@{
+                            var thanhtien = int.Parse(item.tt) - int.Parse(item.tiengiam);}
+                    <p>@thanhtien</p>
+                </td>
+                <td>@Html.ActionLink("Chi Tiết", "CTHOADON", "HOADON", new { @id = item.ID.Replace(" ", "") }, new { @class = "dropdown-item", @style = "" })</td>
+            </tr>
+                        }
+                    }
+                }
+            }
+        }
+        <tr>
+        </tr>
+    </tbody>
+</table>
+

@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "BANTAICHINHANH";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using web.Models;
+@{
+    NHACCNHAP ncc = new NHACCNHAP();
+    CHINHANH cn = new CHINHANH();
+}
+<div class="row">
+    <div class="col-4">
+        <div class="row">
+            <div class="col-6">
+                <input type="text" class="w-100" id="kh" />
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-success" id="find">Tìm</button>
+            </div>
+        </div>
+        <label>Thông tin khách hàng</label><br />
+        <label>MAKH: <label id="ma"></label></label><br />
+        <label>Họ Tên: <label id="hoten"></label></label>
+        <br />
+    </div>
+    <div class="col-3">
+        <select class="select2 w-100 form-control" id="cn" onchange="myFunction2()">
+            @{
+                if (Session["maad"].ToString().Equals("admin"))
+                {
+                    var menu2 = cn.getData2();
+                    foreach (var item in menu2)
+                    {
+                <option value="@item.ID">@item.Ten</option>   
+                    }
+                }
+                else
+                {
+                    var menu2 = cn.getData2(Session["maad"].ToString());
+                    foreach (var item in menu2)
+                    {
+                <option value="@item.ID">@item.Ten</option>   
+                    }
+                }
+            }
+        </select>
+    </div>
+</div>
+<h3>Tổng: <p id="tong"></p></h3>
+<label>Điểm tích lũy: <label id="diem"></label> <input type="checkbox" id="chkbox" onclick="checkDTL()"/></label>
+<h3>Thành tiền: <p id="thanhtien"></p></h3>
+<div>
+    <table class="table" id="table2">
+        <thead>
+            <tr>
+                <td>STT</td>
+                <td>MÃ SP</td>
+                <td>Tên SP</td>
+                <td>SLT</td>
+                <td>SL</td>
+                <td>Đơn giá</td>
+                <td>Thành tiền</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                for (int i = 0; i < 10; i++)
+                {
+                    var deltailCode = "detail" + i + "Code";
+                    var deltailName = "detail" + i + "ItemName";
+                    var deltailSL = "detail" + i + "SLad";
+                    var deltailTT = "detail" + i + "TT";
+                    var deltailDG = "detail" + i + "DG";
+                    var deltailSLT = "detail" + i + "SLT";
+                    var stt = i + 1;
+                <tr>
+                    <td>@stt</td>
+                    <td><strong order="@i" id="@deltailCode"></strong></td>
+                    <td>
+                        <input type="text" class="item_name" order="@i" id="@deltailName" value="" autocomplete="off"/></td>
+                     <td><strong order="@i" class="autotab" id="@deltailSLT"></strong></td>
+                    <td>
+                        <input type="number" order="@i" class="autotab" id="@deltailSL" /></td>
+                    <td><strong order="@i" class="autotab" id="@deltailDG"></strong></td>
+                    <td>
+                        <strong type="number" order="@i" class="autotab" id="@deltailTT"></strong></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" name="them" value="them" onclick="xoaItemad(@i)" style="margin-bottom: 17px">Xóa</button>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success" id="btnLuuTC">Lưu</button>
+    <button type="button" class="btn btn-info" id="btnLmMsTC">Làm mới</button>
+    <strong id="erro" style="color: red"></strong>
+</div>

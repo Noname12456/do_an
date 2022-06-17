@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "HOADON";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@using web.Models;
+@{
+    DONHANG hd = new DONHANG();
+    var ma = hd.hd();
+}
+<h1>Mã hóa đơn của bạn là: @ma</h1>
+<a href="/Index/Index">Tiếp tục mua hàng</a>
+<a href="/HOADON/HTHOADON">Hóa đơn</a>

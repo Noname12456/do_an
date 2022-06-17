@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "LOAICHUDE";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@model PagedList.IPagedList<web.Models.SANPHAM>
+@using PagedList.Mvc;
+@using web.Models;
+<div class="row" style="margin-top: 20px">
+    <div class="col-xl-3 col-md-3" style="border-right: 1px inset black">
+    </div>
+    <div class="col-xl-9 col-md-9">
+        <div class="w-100 text-right">
+            @using (Html.BeginForm("LOAICHUDE", "DSSP", FormMethod.Post, new { @class = "" }))
+            {
+                <button name="doc" value="1" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-border-all" viewBox="0 0 16 16">
+                        <path d="M0 0h16v16H0V0zm1 1v6.5h6.5V1H1zm7.5 0v6.5H15V1H8.5zM15 8.5H8.5V15H15V8.5zM7.5 15V8.5H1V15h6.5z" />
+                    </svg>
+                </button>
+                <button name="ngang" value="1" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-text-sidebar" viewBox="0 0 16 16">
+                        <path d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z" />
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9V1z" />
+                    </svg>
+                </button>
+            }
+        </div>
+        <div class="row" style="margin-top: 50px">
+            @{
+                var link = "";
+                var link2 = "";
+                if ((Boolean)Session["doc"] == true)
+                {
+                    foreach (var item in Model)
+                    {
+                        link2 = "/LOAICHUDE/" + item.MALCD.Replace(" ", "");
+                        link = "/CHITIETSP/CHITIETSP/" + item.MASP.Replace(" ", "");
+                <div class="col-xl-3 col-sm-4 col-12">
+                    <div class="card">
+                        <a href="@link">
+                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px; margin-right: 10px">
+                                <div class="text-center">
+                                    @{
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                        var sanPhamHinh = SPH.getData(@item.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                        {
+                            var hinh = "/IMG/" + itemHinh.HINH;
+                                        <img class="card-img-top" src="@hinh" style="height:205px"/>
+                        }
+                                    }
+
+                                </div>
+                                <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                <div style="margin-right: 10px">
+                                    @using (Html.BeginForm("LOAICHUDE", "DSSP", FormMethod.Post, new { @class = "" }))
+                                    {
+                                        <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                            Thêm giỏ hàng
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                    }
+                }
+                if ((Boolean)Session["ngang"] == true)
+                {
+                    foreach (var item in Model)
+                    {
+                        link2 = "/LOAICHUDE/" + item.MALCD.Replace(" ", "");
+                        link = "/CHITIETSP/CHITIETSP/" + item.MASP.Replace(" ", "");
+                <div class="col-xl-6 col-sm-6 col-6">
+                    <div class="card">
+                        <a href="@link">
+                            <div style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        @{
+                        SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                        var sanPhamHinh = SPH.getData(@item.MASP);
+                        foreach (var itemHinh in sanPhamHinh)
+                        {
+                            var hinh = "/IMG/" + itemHinh.HINH;
+                                            <img class="card-img-top w-100" src="@hinh" style="height:178px"/>
+                        }
+                                        }
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <p style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.TENSP</p>
+                                        <p style="color: red; font-weight: bold">@int.Parse(item.GIABAN).ToString("N0") đ</p>
+                                        <div style="margin-right: 10px">
+                                            @using (Html.BeginForm("LOAICHUDE", "DSSP", FormMethod.Post, new { @class = "" }))
+                                            {
+                                                <button class="btn btn-outline-warning w-100" name="mua" value="@item.MASP.Replace(" ", "")" type="submit" style="border-radius:25px">
+                                                    Thêm giỏ hàng
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                    }
+                }
+            }
+        </div>
+        <div style="color: white; text-align: center">
+            <p>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount</p>
+            <div class="pagination" style="color: black">
+                @Html.PagedListPager(Model, Page => Url.Action(link2, new { Page }), new PagedListRenderOptions
+               {
+                   LiElementClasses = new List<string> { "page-item", "page-link" }
+               })
+            </div>
+        </div>
+    </div>
+</div>

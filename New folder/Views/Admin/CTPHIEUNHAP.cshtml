@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "PHIEUNHAP";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<style>
+    .ui-helper-hidden-accessible {
+        display: none;
+    }
+</style>
+@using web.Models;
+@{
+    NHACCNHAP ncc = new NHACCNHAP();
+    CHINHANH cn = new CHINHANH();
+    PHIEUNHAP pn = new PHIEUNHAP();
+    PHIEUNHAPCT pnct = new PHIEUNHAPCT();
+    var menupn = pn.getDataCT(Session["PN"].ToString());
+    var ma = "";
+}
+<div class="row">
+    @{
+        foreach (var item in menupn)
+        {
+            ma = item.MAPHIEU;
+        <div class="col-xl-1">
+            MÃ PHIẾU
+        </div>
+        <div class="col-xl-2">
+            @item.MAPHIEU
+        </div>
+        <div class="col-xl-1">
+            NCC
+        </div>
+        <div class="col-xl-2">
+            <select class="select2 w-100 form-control" id="ncc" onchange="myFunction()" disabled>
+                <option value="">Chọn Nhà Cung cấp</option>
+                @{
+            var menu = ncc.getData();
+            foreach (var item2 in menu)
+            {
+                var selected = "";
+                if (item.MANCC.Equals(item2.ID))
+                {
+                    selected = "selected='selected'";
+                }
+                    <option value="@item2.ID" @selected>@item2.Ten</option>   
+            }
+                }
+            </select>
+        </div>
+        <div class="col-xl-1">
+            Số HĐ
+        </div>
+        <div class="col-xl-2">
+            <input type="text" class="w-100 form-control" id="sohd" value="@item.SOHD" disabled/>
+        </div>
+        <div class="col-xl-1">
+            Kí hiệu HĐ
+        </div>
+        <div class="col-xl-2">
+            <input type="text" class="w-100 form-control" id="kyhieu" value="@item.KYHIEU" disabled/>
+        </div>
+        <div class="col-xl-1">
+            Ký hiệu mẫu HĐ
+        </div>
+        <div class="col-xl-2">
+            <input type="text" class="w-100 form-control" id="mauhd" value="@item.KYHIEUMAU" disabled/>
+        </div>
+        <div class="col-xl-1">
+            Người nhập
+        </div>
+        <div class="col-xl-2">
+            @Session["maad"]
+        </div>
+        <div class="col-xl-1">
+            Ngày nhập
+        </div>
+        <div class="col-xl-2">
+            <input type="date" class="w-100 form-control" id="ngaynhap" value="@item.NGAYNHAP" disabled/>
+        </div>
+        <div class="col-xl-1">
+            Ngày HĐ
+        </div>
+        <div class="col-xl-2">
+            <input type="date" class="w-100 form-control" id="ngayhd" value="@item.NGAYHD" disabled/>
+        </div>
+        <div class="col-xl-1">
+            Ngày nhận HĐ
+        </div>
+        <div class="col-xl-2">
+            <input type="date" class="w-100 form-control" id="ngaynhan" value="@item.NGAYNHANHD" disabled/>
+        </div>
+        <div class="col-xl-1">
+            CHI NHÁNH
+        </div>
+        <div class="col-xl-2">
+            <select class="select2 w-100 form-control" id="cn" disabled>
+                @{
+            var menu2 = cn.getData2();
+            foreach (var item2 in menu2)
+            {
+                var selected = "";
+                if (item.MACN.Equals(item2.ID))
+                {
+                    selected = "selected='selected'";
+                }
+                    <option value="@item2.ID" @selected>@item2.Ten</option>   
+            }
+                }
+            </select>
+        </div>
+        <div class="col-xl-1">
+            Tổng tiền
+        </div>
+        <div class="col-xl-2">
+            <input type="number" class="w-100 form-control" id="tong" value="@item.TONG" disabled/>
+        </div>
+        <div class="col-xl-1">
+            VAT
+        </div>
+        <div class="col-xl-2">
+            <select class="form-control" id="vat" disabled>
+                <option value="0">0</option>
+                <option value="5" selected="selected">5</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="col-xl-1">
+            Tiền VAT
+        </div>
+        <div class="col-xl-2">
+            <input type="number" class="w-100 form-control" id="tienvat" value="@item.TIENVAT" disabled/>
+        </div>
+        <div class="col-xl-1">
+            Thành tiền VAT
+        </div>
+        <div class="col-xl-2">
+            <input type="number" class="w-100 form-control" id="thanhtienvat" value="@item.THANHTIENVAT" disabled/>
+        </div>
+        <div class="col-xl-1">
+            Ghi chú
+        </div>
+        <div class="col-xl-2">
+            <input type="text" class="w-100 form-control" id="ghichu" value="@item.GHICHU" disabled/>
+        </div>
+        }
+    }
+</div>
+<div>
+    <h3>CHI TIẾT PHIẾU NHẬP</h3>
+    <table class="table" id="table2">
+        <thead>
+            <tr>
+                <td>STT</td>
+                <td>MÃ SP</td>
+                <td>Tên SP</td>
+                <td>SL</td>
+                <td>Đơn giá</td>
+                <td>Đơn giá VAT</td>
+                <td>Thành tiền</td>
+                <td>Thành tiền VAT</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var menuItem = pnct.getData(Session["PN"].ToString());
+                var i = 0;
+                foreach (var item in menuItem)
+                {
+                    var deltailCode = "detail" + i + "Code";
+                    var deltailName = "detail" + i + "ItemName";
+                    var deltailSL = "detail" + i + "SL";
+                    var deltailTT = "detail" + i + "TT";
+                    var deltailVAT = "detail" + i + "TTVAT";
+                    var deltailDG = "detail" + i + "DG";
+                    var deltailDGVAT = "detail" + i + "DGVAT";
+                    var stt = i + 1;
+                <tr>
+                    <td>@stt</td>
+                    <td><strong order="@i" id="@deltailCode">@item.MASP</strong></td>
+                    <td>
+                        <input type="text" class="item_name" order="@i" id="@deltailName" value="" autocomplete="off" disabled/></td>
+                    <td>
+                        <input type="number" order="@i" class="autotab" id="@deltailSL" value="@item.SL" disabled/></td>
+                    <td><strong order="@i" class="autotab" id="@deltailDG">@item.DG</strong></td>
+                    <td><strong order="@i" class="autotab" id="@deltailDGVAT">@item.DGVAT</strong></td>
+                    <td>
+                        <input type="number" order="@i" class="autotab" id="@deltailTT" value="@item.TT" disabled/></td>
+                    <td>
+                        <strong order="@i" class="autotab" id="@deltailVAT">@item.TTVAT</strong></td>
+                    <td>
+                </tr>
+                    i++;
+                }
+                
+            }
+        </tbody>
+    </table>
+</div>

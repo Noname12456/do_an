@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "BAOCAONHAPXUATTON";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using web.Models;
+@{
+    CHINHANH cn = new CHINHANH();
+}
+@using (Html.BeginForm("BAOCAONHAPXUATTON", "Admin", FormMethod.Post, new { @class = "" }))
+{
+    <div class="row">
+        <div class="col-xl-1">
+            CHI NHÁNH
+        </div>
+        <div class="col-xl-2">
+            <select class="select2 w-100 form-control" id="cn" name="cn">
+                @{
+    var menu2 = cn.getData2();
+    foreach (var item2 in menu2)
+    {
+                    <option value="@item2.ID">@item2.Ten</option>   
+                    
+    }
+                }
+            </select>
+        </div>
+@*        <div class="col-xl-1">
+            Từ ngày
+        </div>*@
+        <div class="col-xl-2">
+            <input type="date" class="w-100 form-control" id="ngaynhap" name="tungay" hidden/>
+        </div>
+        @*<div class="col-xl-1">
+            Đến ngày
+        </div>*@
+        <div class="col-xl-2">
+            <input type="date" class="w-100 form-control" id="ngayhd" name="dengay"/>
+        </div>
+        <div class="col-xl-2">
+            <button type="submit" name="tim" value="tim" class="btn btn-success">Báo cáo</button>
+        </div>
+    </div>
+}
+@{
+    if (Session["bao_cao"] != "")
+    {
+        var menu = Session["bao_cao"] as List<BAOCAO>;
+        if (menu.Count > 0)
+        {
+    <table class="table">
+        <thead>
+            <tr>
+                <td>MASP</td>
+                <td>TENSP</td>
+                <td>SL NHẬP</td>
+                <td>SL NHẬP KHÁC</td>
+                <td>SL BÁN</td>
+                <td>SL XUẤT KHÁC</td>
+                <td>Tồn Hiện tại</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+            foreach (var item in menu)
+            {
+                <tr>
+                    <td>@item.MASP</td>
+                    <td>@item.TENSP</td>
+                    <td>@item.SLNHAP</td>
+                    <td>@item.SLNHAPKHAC</td>
+                    <td>@item.SL_BAN </td>
+                    <td>@item.SL_XUATKHAC</td>
+                    <td>@item.SLTON</td>
+                </tr>
+            }
+            }
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+        }
+    }
+}

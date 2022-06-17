@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "GIOHANG";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@using web.Models;
+<div class="row">
+    <div class="col-xl-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Mã sản phẩm</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Thành tiền</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    SANPHAM sp = new SANPHAM();
+                    var tong = 0;
+                    var mneu = Session["GH"] as List<GIOHANG>;
+                    if (mneu != null)
+                    {
+                        foreach (var item in mneu)
+                        {
+                            var menu = sp.getDataCT(item.ID);
+                            foreach (var item2 in menu)
+                            {
+                                var thanhtien = int.Parse(item2.GIABAN) * item.SL;
+                                tong += thanhtien;
+                    <tr>
+                        <th scope="row">
+                            @{
+                                SANPHAMHINHANH SPH = new SANPHAMHINHANH();
+                                var sanPhamHinh = SPH.getData(@item.ID);
+                                foreach (var itemHinh in sanPhamHinh)
+                                {
+                                    var hinh = "/IMG/" + itemHinh.HINH;
+                                <img class="card-img-top" src="@hinh" style="width: 80px; height: 80px"/>
+                                } 
+                            }
+                        </th>
+                        <td>@item2.MASP</td>
+                        <td>@item2.TENSP</td>
+                        <td>@int.Parse(item2.GIABAN).ToString("N0")</td>
+                        <td>
+                            <input type="number" name="sl" min="1" class="sl" value="@item.SL" style="width:80px" data-id="@item.ID">
+                        </td>
+                        <td>
+                            @thanhtien.ToString("N0") VND
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("GIOHANG", "GIOHANG", FormMethod.Post, new { @class = "" }))
+                            {
+                                <button name="xoa" value="@item2.MASP.Replace(" ", "")" type="submit" style="border: none; background: none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                    </svg></button>
+                            }
+                        </td>
+                    </tr>
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                    <td class="text-center" colspan="7">Hiện tại không có sản phẩm trong giỏ hàng
+                    </td>
+                    }
+                }
+            </tbody>
+        </table>
+        <a type="button" class="btn btn-outline-primary" href="/Index/Index">MUA TIẾP</a>
+        <button id="btnUpdate" class="btn btn-outline-info"><i class="fa fa-refresh"></i>Cập nhật</button>
+    </div>
+    <div class="col-xl-4">
+        <h1>Đơn hàng
+        </h1>
+        @if (mneu != null)
+        {
+            <div class="row w-100 border" style="padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-top: 5px">
+                <label class="col-6" style="font-size: 20px">Tổng tiền</label>
+                <label class="col-6 text-right">@tong VND</label>
+                <a type="submit" class="btn btn-outline-info w-100" style="margin-left: 5px; margin-right: 5px; margin-bottom: 20px" href="/THANHTOAN/THANHTOAN">THANH TOÁN</a>
+            </div>
+        }
+        <div class="w-100 border" style="margin-top: 10px; margin-left: -15px; padding-top: 10px; padding-bottom: 10px">
+            <label class="col-12">Phí vận chuyển ghi trên chỉ là giá dự kiến, nhân viên bán hàng sẽ liên hệ bạn xác nhận đơn hàng và báo phí vận chuyển thực tế</label>
+            <label class="col-12">Đổi trả hàng trong vòng 7 ngày</label>
+            <label class="col-12">Thời gian giao hàng từ 1 - 3 ngày làm việc</label>
+            <label class="col-12">Bằng cách hoàn tất đơn hàng, bạn đã đồng ý với các chính sách và quy định chung</label>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#btnUpdate').off('click').on('click', function () {
+        var listProduct = $('.sl');
+        var cartList = [];
+        var dem = 0;
+        $.each(listProduct, function (i, item) {
+            if ($(item).val() == 0) {
+                dem = 1;
+                alert("Số lượng lớn hơn 0");
+                return;
+            } else {
+                cartList.push({
+                    SL: $(item).val(),
+                    ID: $(item).data('id')
+                });
+            }
+        });
+        if (dem == 0) {
+            $.ajax({
+                url: '/GIOHANG/Update',
+                data: { cartModel: JSON.stringify(cartList) },
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status == true) {
+                        window.location.href = "/GIOHANG/GIOHANG";
+                    }
+                }
+            })
+        }
+    });
+</script>

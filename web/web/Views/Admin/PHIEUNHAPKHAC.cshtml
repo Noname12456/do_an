@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "NHAPKHAC";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<style>
+    .ui-helper-hidden-accessible {
+        display: none;
+    }
+</style>
+@using web.Models;
+@{
+    NHACCNHAP ncc = new NHACCNHAP();
+    CHINHANH cn = new CHINHANH();
+}
+<div class="row">
+    <div class="col-xl-1">
+        Người nhập
+    </div>
+    <div class="col-xl-2">
+        @Session["maad"]
+    </div>
+    <div class="col-xl-1">
+        Ngày nhập
+    </div>
+    <div class="col-xl-2">
+        <input type="date" class="w-100 form-control" id="ngaynhan"  />
+    </div>
+    <div class="col-xl-1">
+        Nơi nhập
+    </div>
+    <div class="col-xl-2">
+        <select class="select2 w-100 form-control" id="cn" onchange="myFunction3()">
+            @{
+                if (Session["maad"].ToString().Equals("admin"))
+                {
+                    var menu2 = cn.getData2();
+                    foreach (var item in menu2)
+                    {
+                        <option value="@item.ID">@item.Ten</option>   
+                    }
+                }
+                else
+                {
+                    var menu2 = cn.getData2(Session["maad"].ToString());
+                    foreach (var item in menu2)
+                    {
+                        <option value="@item.ID">@item.Ten</option>   
+                    }
+                }
+               
+               
+            }
+        </select>
+    </div>
+    <div class="col-xl-1">
+        Ghi chú
+    </div>
+    <div class="col-xl-2">
+        <input type="text" class="w-100 form-control" id="ghichu" />
+    </div>
+</div>
+<div>
+    <h3>CHI TIẾT PHIẾU NHẬP</h3>
+    <table class="table" id="table3">
+        <thead>
+            <tr>
+                <td>STT</td>
+                <td>MÃ SP</td>
+                <td>Tên SP</td>
+                <td>SL</td>
+                <td>Ghi chú</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                for (int i = 0; i < 10; i++)
+                {
+                    var deltailCode = "detail" + i + "Code";
+                    var deltailName = "detail" + i + "ItemName";
+                    var deltailSL = "detail" + i + "SL";
+                    var deltailGC = "detail" + i + "GC";
+                    var stt = i + 1;
+                <tr>
+                    <td>@stt</td>
+                    <td><strong order="@i" id="@deltailCode"></strong></td>
+                    <td>
+                        <input type="text" class="item_name" order="@i" id="@deltailName" value="" autocomplete="off"/></td>
+                    <td>
+                        <input type="number" order="@i" class="autotab" id="@deltailSL" />
+                    </td>
+                    <td>
+                        <input type="text" order="@i" class="autotab" id="@deltailGC" />
+                    </td>
+                    <td><button type="button" class="btn btn-danger" name="them" value="them" onclick="xoaItem(@i)" style="margin-bottom: 17px">Xóa</button>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-success" id="btnLuuNK">Lưu</button>
+    <button type="button" class="btn btn-info" id="btnLmMsNK">Làm mới</button>
+    <strong id="erro" style="color:red"></strong>
+</div>
+<script  type="text/javascript">
+    $(document).ready(function () {
+        document.getElementById('ngayxuat').valueAsDate = new Date();
+    });
+</script>

@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "SPCHINHANH";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using web.Models;
+@{
+    SPCHINHANH sp = new SPCHINHANH();
+    var ma = Session["CTSPCN"].ToString();
+    LOAIQUYENOFNHANVIEN quyen = new LOAIQUYENOFNHANVIEN();
+}
+@if (quyen.getDataQuyenNV(Session["maad"].ToString(), "them_sp_cn") == 1 || Session["maad"].ToString().Equals("admin"))
+{
+    <button type="button" class="btn btn-outline-danger a" data-toggle="modal" onclick="luuSp('@ma')">
+        Lưu
+    </button>
+}
+<div class="row">
+    <div class="col-xl-6">
+        <h1>Sản phẩm có trong chi nhánh</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>Mã sản phẩm</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Số lượng tồn</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var menu = sp.getData2(ma);
+                    if (menu.Count > 0)
+                    {
+                        foreach (var item in menu)
+                        {
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="chkyes" checked="checked" data-id="@item.MASP"/></td>
+                        <td>@item.MASP</td>
+                        <td>@item.TENSP</td>
+                        <td>@item.SLTON</td>
+                    </tr> 
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xl-6">
+        <h1>Sản phẩm không có trong chi nhánh</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>Mã sản phẩm</td>
+                    <td>Tên sản phẩm</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var menu2 = sp.getData3(ma);
+                    if (menu2.Count > 0)
+                    {
+                        foreach (var item in menu2)
+                        {
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="chkbo" data-id="@item.MASP"/></td>
+                        <td>@item.MASP</td>
+                        <td>@item.TENSP</td>
+                    </tr> 
+                        }
+                    }
+                }
+                @{
+                    var menu3 = sp.getData4(ma);
+                    if (menu3.Count > 0)
+                    {
+                        foreach (var item in menu3)
+                        {
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="chkthem" data-id="@item.MASP"/></td>
+                        <td>@item.MASP</td>
+                        <td>@item.TENSP</td>
+                    </tr> 
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
