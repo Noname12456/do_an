@@ -38,7 +38,11 @@
     <tbody>
         @{
             PHIEUXUAT sp = new PHIEUXUAT();
-            var menuSp = sp.getData();
+            var menuSp = sp.getData(1);
+            if (!Session["maad"].ToString().Equals("admin"))
+            {
+                menuSp = sp.getData(1, Session["maad"].ToString());
+            }
             var i = 1;
             foreach (var item in menuSp)
             {

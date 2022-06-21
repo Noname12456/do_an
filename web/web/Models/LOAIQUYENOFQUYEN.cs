@@ -83,14 +83,16 @@ namespace web.Models
             con.Open();
             SqlCommand cmd3 = new SqlCommand("select MANV from NHANVIEN where IDQUYEN = '" + maquyen + "'", con);
             cmd3.CommandType = CommandType.Text;
+            con.Close();
             SqlDataReader dr2 = cmd3.ExecuteReader();
             while (dr2.Read())
             {
+                con.Open();
                 SqlCommand cmd2 = new SqlCommand("insert into LOAIQUYENOFNHANVIEN(MANV,IDLOAIQUYEN) values(N'" + dr2.GetValue(0).ToString() + "','" + maloaiquyen + "')", con);
                 cmd2.CommandType = CommandType.Text;
                 dr = cmd2.ExecuteNonQuery();
+                con.Close();
             }
-            con.Close();
             return dr;
         }
         public int update(int maloaiquyen, string maquyen)

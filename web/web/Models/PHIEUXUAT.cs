@@ -23,15 +23,49 @@ namespace web.Models
         public string MASP { get; set; }
         public string SL { get; set; }
         public string NAME { get; set; }
-        public List<PHIEUXUAT> getData()
+        public List<PHIEUXUAT> getData(int loaiphieu)
         {
             List<PHIEUXUAT> listBH = new List<PHIEUXUAT>();
             SqlConnection con = new SqlConnection(conf);
-            SqlCommand cmd = new SqlCommand("select * from PHIEUXUAT", con);
+            SqlCommand cmd = new SqlCommand("select * from PHIEUXUAT where loaiphieu = '" + loaiphieu + "'", con);
             cmd.CommandType = CommandType.Text;
             con.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
+            {
+                PHIEUXUAT emp = new PHIEUXUAT();
+                emp.MAPHIEU = dr.GetValue(0).ToString();
+                emp.MACNXUAT = dr.GetValue(2).ToString();
+                emp.GHICHU = dr.GetValue(5).ToString();
+                emp.NOINHAN = dr.GetValue(4).ToString();
+                emp.NGUOITAO = dr.GetValue(6).ToString();
+                emp.NGAYXUAT = dr.GetValue(1).ToString();
+                emp.NGAYTAO = dr.GetValue(7).ToString();
+                emp.TRANGTHAI = dr.GetValue(9).ToString();
+                listBH.Add(emp);
+            }
+            con.Close();
+            return listBH;
+        }
+        public List<PHIEUXUAT> getData(int loaiphieu,string mann)
+        {
+            List<PHIEUXUAT> listBH = new List<PHIEUXUAT>();
+            SqlConnection con = new SqlConnection(conf);
+            var macn = "";
+            SqlCommand cmd2 = new SqlCommand("select MACN from NHANVIEN where manv='" + mann + "'", con);
+            cmd2.CommandType = CommandType.Text;
+            con.Open();
+            SqlDataReader dr = cmd2.ExecuteReader();
+            while (dr.Read())
+            {
+                macn = dr.GetValue(0).ToString();
+            }
+            con.Close();
+            SqlCommand cmd = new SqlCommand("select * from PHIEUXUAT where loaiphieu = '" + loaiphieu + "' and MACNGUI = '" + macn + "'", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            SqlDataReader dr2 = cmd.ExecuteReader();
+            while (dr2.Read())
             {
                 PHIEUXUAT emp = new PHIEUXUAT();
                 emp.MAPHIEU = dr.GetValue(0).ToString();

@@ -65,6 +65,18 @@ namespace web.Models
             return dr;
 
         }
+        public int updateDiem1(string email,int tong)
+        {
+            int dr = 0;
+            SqlConnection con = new SqlConnection(conf);
+            SqlCommand cmd = new SqlCommand("update KHACHHANG set DIEMTL = DIEMTL - " + tong + " where email= '" + email + "'", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            dr = cmd.ExecuteNonQuery();
+            con.Close();
+            return dr;
+
+        }
         public int updateDiem(string email,float diem)
         {
             int dr = 0;

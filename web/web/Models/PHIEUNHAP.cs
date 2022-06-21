@@ -63,6 +63,49 @@ namespace web.Models
             con.Close();
             return listBH;
         }
+        public List<PHIEUNHAP> getData(int loaiphieu,string mann)
+        {
+            List<PHIEUNHAP> listBH = new List<PHIEUNHAP>();
+            SqlConnection con = new SqlConnection(conf);
+            var macn = "";
+            SqlCommand cmd2 = new SqlCommand("select MACN from NHANVIEN where manv='" + mann + "'", con);
+            cmd2.CommandType = CommandType.Text;
+            con.Open();
+            SqlDataReader dr = cmd2.ExecuteReader();
+            while (dr.Read())
+            {
+                macn = dr.GetValue(0).ToString();
+            }
+            con.Close();
+            SqlCommand cmd = new SqlCommand("select * from PHIEUNHAP where loaiphieu = '" + loaiphieu + "' and MACN = '"+macn+"'", con);
+            cmd.CommandType = CommandType.Text;
+            con.Open();
+            SqlDataReader dr2 = cmd.ExecuteReader();
+            while (dr2.Read())
+            {
+                PHIEUNHAP emp = new PHIEUNHAP();
+                emp.MAPHIEU = dr.GetValue(0).ToString();
+                emp.SOHD = dr.GetValue(1).ToString();
+                emp.KYHIEU = dr.GetValue(2).ToString();
+                emp.KYHIEUMAU = dr.GetValue(3).ToString();
+                emp.NGAYNHAP = dr.GetValue(4).ToString();
+                emp.NGAYHD = dr.GetValue(5).ToString();
+                emp.NGAYNHANHD = dr.GetValue(6).ToString();
+                emp.MACN = dr.GetValue(7).ToString();
+                emp.TONG = dr.GetValue(8).ToString();
+                emp.VAT = dr.GetValue(9).ToString();
+                emp.TIENVAT = dr.GetValue(10).ToString();
+                emp.THANHTIENVAT = dr.GetValue(11).ToString();
+                emp.GHICHU = dr.GetValue(12).ToString();
+                emp.NGUOITAO = dr.GetValue(13).ToString();
+                emp.NGAYTAO = dr.GetValue(14).ToString();
+                emp.TRANGTHAI = dr.GetValue(16).ToString();
+                emp.MANCC = dr.GetValue(18).ToString();
+                listBH.Add(emp);
+            }
+            con.Close();
+            return listBH;
+        }
         public List<PHIEUNHAP> getDataCT(string ma)
         {
             List<PHIEUNHAP> listBH = new List<PHIEUNHAP>();

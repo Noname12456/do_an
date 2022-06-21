@@ -206,11 +206,6 @@ namespace web.Controllers
                 {
                     KHACHHANG m = new KHACHHANG();
                     var kh = m.getData(Session["Email"].ToString());
-                    if (chk.Equals("1"))
-                    {
-                        diem = m.getDataTL(Session["Email"].ToString());
-                        m.updateDiem1(Session["Email"].ToString());
-                    }
                     int ma = 0;
                     foreach (var item in kh)
                     {
@@ -246,6 +241,19 @@ namespace web.Controllers
                                     }
                                 }
                             }
+                        }
+                        if (chk.Equals("1"))
+                        {
+                            diem = m.getDataTL(Session["Email"].ToString());
+                            if (tong >= diem)
+                            {
+                                m.updateDiem1(Session["Email"].ToString());
+                            }
+                            else
+                            {
+                                m.updateDiem1(Session["Email"].ToString(),tong);
+                            }
+
                         }
                         if (Session["KM"] != null)
                         {

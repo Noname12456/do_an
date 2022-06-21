@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <style>
         body {
@@ -104,116 +106,500 @@
                 right: 1px;
                 width: 20px;
             }
+
+        a:hover {
+            text-decoration: none;
+        }
+        /** ======================  header ==============================**/
+        .header {
+            background-color: #3c8dbc;
+        }
+
+            .header .dropdown-menu {
+                position: absolute;
+                right: 0;
+                left: auto;
+                border-radius: 0px;
+            }
+
+            .header .user-image {
+                float: left;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                margin-right: 10px;
+                margin-top: -2px;
+            }
+
+            .header .navbar-light .navbar-nav .nav-link {
+                color: #fff;
+            }
+
+                .header .navbar-light .navbar-nav .nav-link:hover, .header .navbar-light .navbar-nav .nav-link:focus {
+                    background: rgba(0,0,0,0.1);
+                    color: #f6f6f6;
+                }
+
+            .header .fa.fa-fw.fa-bars {
+                color: #fff;
+            }
+
+            .header .navbar-light .navbar-nav .nav-link {
+                color: #fff;
+                padding: 10px 20px;
+                position: relative;
+            }
+
+            .header li > a > .label {
+                position: absolute;
+                top: 9px;
+                right: 7px;
+                text-align: center;
+                font-size: 9px;
+                padding: 2px 3px;
+                line-height: .9;
+                background-color: #333;
+                border-radius: .25em;
+            }
+
+            .header li > a:after {
+                display: none;
+            }
+
+        .header-ul {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: #ffffff;
+            padding: 7px 10px;
+            border-bottom: 1px solid #f4f4f4;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .navbar-nav > .notifications-menu > .dropdown-menu, .navbar-nav > .messages-menu > .dropdown-menu, .navbar-nav > .tasks-menu > .dropdown-menu {
+            width: 280px;
+            padding: 0 0 0 0;
+            margin: 0;
+            top: 100%;
+        }
+
+            .navbar-nav > .messages-menu > .dropdown-menu li .menu > li > a > div > img {
+                margin: auto 10px auto auto;
+                width: 40px;
+                height: 40px;
+            }
+
+            .navbar-nav > .messages-menu > .dropdown-menu li .menu > li > a, .navbar-nav > .notifications-menu > .dropdown-menu li .menu > li > a {
+                margin: 0;
+                padding: 10px 10px;
+                display: block;
+                white-space: nowrap;
+                border-bottom: 1px solid #f4f4f4;
+            }
+
+                .navbar-nav > .messages-menu > .dropdown-menu li .menu > li > a > h4 {
+                    padding: 0;
+                    margin: 0 0 0 45px;
+                    color: #333;
+                    font-size: 15px;
+                    position: relative;
+                }
+
+                .navbar-nav > .messages-menu > .dropdown-menu li .menu > li > a > p {
+                    margin: 0 0 0 45px;
+                    font-size: 12px;
+                    color: #888888;
+                }
+
+        .footer-ul a {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+            font-size: 12px;
+            background-color: #fff;
+            padding: 7px 10px;
+            border-bottom: 1px solid #eeeeee;
+            color: #333;
+            display: block;
+        }
+
+        .dropdown-menu-over .menu {
+            max-height: 200px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            overflow-x: hidden;
+        }
+
+        .navbar-nav > .notifications-menu > .dropdown-menu li .menu > li > a {
+            color: #444444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 10px;
+        }
+
+            .navbar-nav > .notifications-menu > .dropdown-menu li .menu > li > a > .glyphicon, .navbar-nav > .notifications-menu > .dropdown-menu li .menu > li > a > .fa, .navbar-nav > .notifications-menu > .dropdown-menu li .menu > li > a > .ion {
+                width: 20px;
+            }
+
+        a.navbar-brand {
+            width: 165px;
+        }
+
+
+        /***    left menu ****/
+
+        /***********************  TOP Bar ********************/
+        .sidebar {
+            width: 220px;
+            background-color: #000;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .bg-defoult {
+            background-color: #222;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .sidebar li a, .sidebar li a.collapsed.active {
+            display: block;
+            padding: 8px 12px;
+            color: #fff;
+            border-left: 0px solid #dedede;
+            text-decoration: none;
+        }
+
+            .sidebar li a.active {
+                background-color: #000;
+                border-left: 5px solid #dedede;
+                transition: all 0.5s ease-in-out;
+            }
+
+            .sidebar li a:hover {
+                background-color: #000 !important;
+            }
+
+            .sidebar li a i {
+                padding-right: 5px;
+            }
+
+        .sidebar ul li .sub-menu li a {
+            position: relative;
+        }
+
+            .sidebar ul li .sub-menu li a:before {
+                font-family: FontAwesome;
+                content: "\f105";
+                display: inline-block;
+                padding-left: 0px;
+                padding-right: 10px;
+                vertical-align: middle;
+            }
+
+            .sidebar ul li .sub-menu li a:hover:after {
+                content: "";
+                position: absolute;
+                left: -5px;
+                top: 0;
+                width: 5px;
+                background-color: #111;
+                height: 100%;
+            }
+
+            .sidebar ul li .sub-menu li a:hover {
+                background-color: #222;
+                padding-left: 20px;
+                transition: all 0.5s ease-in-out;
+            }
+
+        .sub-menu {
+            border-left: 5px solid #dedede;
+        }
+
+        .sidebar li a .nav-label, .sidebar li a .nav-label + span {
+            transition: all 0.5s ease-in-out;
+        }
+
+
+        .sidebar.fliph li a .nav-label, .sidebar.fliph li a .nav-label + span {
+            display: none;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .sidebar.fliph {
+            width: 42px;
+            transition: all 0.5s ease-in-out;
+        }
+
+            .sidebar.fliph li {
+                position: relative;
+            }
+
+            .sidebar.fliph .sub-menu {
+                position: absolute;
+                left: 39px;
+                top: 0;
+                background-color: #222;
+                width: 150px;
+                z-index: 100;
+            }
+
+
+        .user-panel {
+            clear: left;
+            display: block;
+            float: left;
+        }
+
+            .user-panel > .image > img {
+                width: 100%;
+                max-width: 45px;
+                height: auto;
+            }
+
+            .user-panel > .info, .user-panel > .info > a {
+                color: #fff;
+            }
+
+                .user-panel > .info > p {
+                    font-weight: 600;
+                    margin-bottom: 9px;
+                }
+
+        .user-panel {
+            clear: left;
+            display: block;
+            float: left;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 25px 15px;
+            border-bottom: 1px solid;
+        }
+
+            .user-panel > .info {
+                padding: 5px 5px 5px 15px;
+                line-height: 1;
+                position: absolute;
+                left: 55px;
+            }
+
+        .fliph .user-panel {
+            display: none;
+        }
     </style>
 </head>
 @using System.IO;
 @using web.Models;
 <body>
     <div class="">
-        <a href="/Admin/DANGXUAT">Đăng xuất @Session["maad"]</a>
         <div class="row">
             <div class="col-xl-2">
-                <ul class="list-group">
-                    @{
-                        LOAIQUYENOFNHANVIEN quyen = new LOAIQUYENOFNHANVIEN();
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_sach") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/SACH">SÁCH</a></li>
-                        }
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dung_cu") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/DUNGCU">DỤNG CỤ</a></li>
-                        }
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_loai_mh") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/LOAIMH">LOẠI MẶT HÀNG</a></li>
-                        }
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_cd") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/CHUDE">CHỦ ĐỀ</a></li>
-                        }
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_lcd") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/LOAICD">LOẠI CHỦ ĐỀ</a></li>
-                        }
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_km") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/KHUYENMAI">KHUYẾN MÃI</a></li>
-                        }
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dh") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/DONHANG">ĐƠN HÀNG</a></li>
-                        }
-                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_bantaichinhanh") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/BANTAICHINHANH">BÁN TẠI CHI NHÁNH</a></li>
-                        }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dhtaiacn") == 1 || Session["maad"].ToString().Equals("admin"))
-                        {
-                        <li class="list-group-item"><a href="/Admin/DONHANGTAICN">ĐƠN HÀNG TẠI CHI NHÁNH</a></li>
-                        }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_tg") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/TACGIA">TÁC GIẢ</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nv") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/NHANVIEN">NHÂN VIÊN</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nxb") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/NHAXUATBAN">NHÀ XUẤT BẢN</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_ncc") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/NHACUNGCAP">NHÀ CUNG CẤP</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nccn") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/NHACUNGCAPNHAP">NHÀ CUNG CẤP NHẬP</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_cn") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/CHINHANH">CHI NHÁNH</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_pn") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/PHIEUNHAP">PHIẾU NHẬP</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dspn") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/DSPHIEUNHAP">DANH SÁCH PHIẾU NHẬP</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_pn_khac") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/PHIEUNHAPKHAC">PHIẾU NHẬP KHÁC</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dspn_khac") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/DSPHIEUNHAPKHAC">DANH SÁCH PHIẾU NHẬP KHÁC</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_quyen") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/QUYEN">QUYỀN</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_lquyen") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/LOAIQUYEN">LOẠI QUYỀN</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_xuatkhac") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/XUATKHAC">XUẤT KHÁC</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dsxuatkhac") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/DSXUATKHAC">DANH SÁCH XUẤT KHÁC</a></li>
-                         }
-                         if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_baocaonhapxuatton") == 1 || Session["maad"].ToString().Equals("admin"))
-                         {
-                        <li class="list-group-item"><a href="/Admin/BAOCAONHAPXUATTON">BÁO CÁO NHẬP XUẤT TỒN</a></li>
-                         }
-                    }
-                </ul>
+                <div class="main">
+                    <aside>
+                        <div class="sidebar left ">
+                            <div class="user-panel">
+                                <div class="pull-left image">
+                                    <img src="http://via.placeholder.com/160x160" class="rounded-circle" alt="User Image">
+                                </div>
+                                <div class="pull-left info">
+                                    <p>@Session["maad"]</p>
+                                    <a href="#"><i class="fa fa-circle text-success"></i>Online</a><br />
+                                    <a href="/Admin/DANGXUAT">Đăng xuất </a>
+                                </div>
+                            </div>
+                            <ul class="list-sidebar bg-defoult">
+                                @{
+                                    LOAIQUYENOFNHANVIEN quyen = new LOAIQUYENOFNHANVIEN();
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_sp") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">DANH MỤC SẢN PHẨM </span></a>
+                                        <ul class="sub-menu collapse" id="dashboard">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_sach") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/SACH">SÁCH</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dung_cu") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/DUNGCU">DỤNG CỤ</a></li>
+                                        }}
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_ch") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard2" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">CẤU HÌNH </span></a>
+                                        <ul class="sub-menu collapse" id="dashboard2">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_loai_mh") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/LOAIMH">LOẠI MẶT HÀNG</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_cd") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/CHUDE">CHỦ ĐỀ</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_lcd") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/LOAICD">LOẠI CHỦ ĐỀ</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_km") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard3" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">KHUYẾN MÃI </span></a>
+                                        <ul class="sub-menu collapse" id="dashboard3">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_km") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/KHUYENMAI">KHUYẾN MÃI</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_ql") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard4" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">QUẢN LÝ </span></a>
+                                        <ul class="sub-menu collapse" id="dashboard4">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_tg") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/TACGIA">TÁC GIẢ</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nxb") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/NHAXUATBAN">NHÀ XUẤT BẢN</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_ncc") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/NHACUNGCAP">NHÀ CUNG CẤP</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nccn") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/NHACUNGCAPNHAP">NHÀ CUNG CẤP NHẬP</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_cn") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/CHINHANH">CHI NHÁNH</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_qldh") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard5" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">QUẢN LÝ ĐƠN HÀNG</span></a>
+                                        <ul class="sub-menu collapse" id="dashboard5">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dh") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/DONHANG">ĐƠN HÀNG ONLINE</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_bantaichinhanh") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/BANTAICHINHANH">BÁN TẠI CHI NHÁNH</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dhtaiacn") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/DONHANGTAICN">ĐƠN HÀNG TẠI CHI NHÁNH</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_qlnhap") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard6" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">QUẢN LÝ NHẬP HÀNG</span></a>
+                                        <ul class="sub-menu collapse" id="dashboard6">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_pn") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/PHIEUNHAP">PHIẾU NHẬP</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dspn") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/DSPHIEUNHAP">DANH SÁCH PHIẾU NHẬP</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_pn_khac") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/PHIEUNHAPKHAC">PHIẾU NHẬP KHÁC</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dspn_khac") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/DSPHIEUNHAPKHAC">DANH SÁCH PHIẾU NHẬP KHÁC</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_qlxuat") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard7" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">QUẢN LÝ XUẤT HÀNG</span></a>
+                                        <ul class="sub-menu collapse" id="dashboard7">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_xuatkhac") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/XUATKHAC">XUẤT KHÁC</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_dsxuatkhac") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/DSXUATKHAC">DANH SÁCH XUẤT KHÁC</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_quantri") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard8" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">QUẢN TRỊ</span></a>
+                                        <ul class="sub-menu collapse" id="dashboard8">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_nv") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/NHANVIEN">NHÂN VIÊN</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_quyen") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/QUYEN">QUYỀN</a></li>
+                                        }
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_lquyen") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/LOAIQUYEN">LOẠI QUYỀN</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                                    if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_qlbaocao") == 1 || Session["maad"].ToString().Equals("admin"))
+                                    {
+                                    <li><a href="#" data-toggle="collapse" data-target="#dashboard9" class="collapsed active"><i class="fa fa-th-large"></i><span class="nav-label">BÁO CÁO</span></a>
+                                        <ul class="sub-menu collapse" id="dashboard9">
+                                            @{
+                                        if (quyen.getDataQuyenNV(Session["maad"].ToString(), "xem_danh_muc_baocaonhapxuatton") == 1 || Session["maad"].ToString().Equals("admin"))
+                                        {
+                                                <li class=""><a href="/Admin/BAOCAONHAPXUATTON">BÁO CÁO NHẬP XUẤT TỒN</a></li>
+                                        }
+                                            }
+                                        </ul>
+                                    </li>
+                                    }
+                       
+                                }
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
             </div>
             <div class="col-xl-9">
                 <div>
@@ -426,6 +812,12 @@
         var str = '<tr id="rowsua_' + row + '"><td><img src="#" id="imgsua_' + row + '" style="width:120px;height:120px"/></td><td><div class="input-group mb-3"><div class="custom-file"><input type="file" class="custom-file-input hinh5" id="inputGroupFileSua_' + row + '" name="" onchange="loadImg(this,' + row + ')" data-id="' + row + '"><label class="custom-file-label" for="inputGroupFile_' + row + '">Choose file</label></div></div></td><td><button type="button" class="btn btn-danger" name="them" value="them" onclick="XoaImgSua(' + row + ')" style="margin-bottom: 17px">Xóa</button></td></tr>';
         $('#table2 tbody').append(str);
         $('#imgsua_' + row).hide();
+    });
+    $(document).ready(function () {
+        $('.button-left').click(function () {
+            $('.sidebar').toggleClass('fliph');
+        });
+
     });
 </script>
 </html>

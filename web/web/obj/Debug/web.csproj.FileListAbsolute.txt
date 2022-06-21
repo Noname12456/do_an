@@ -14,3 +14,9 @@ C:\Users\ADMIN\Desktop\do_an\web\web\bin\web.pdb
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.dll
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.pdb
 C:\Users\ADMIN\Desktop\do_an\web\web\obj\Debug\web.csprojResolveAssemblyReference.cache
+C:\Users\ADMIN\Desktop\do_an\web\web\bin\mscorlib.dll
+C:\Users\ADMIN\Desktop\do_an\web\web\bin\normidna.nlp
+C:\Users\ADMIN\Desktop\do_an\web\web\bin\normnfc.nlp
+C:\Users\ADMIN\Desktop\do_an\web\web\bin\normnfd.nlp
+C:\Users\ADMIN\Desktop\do_an\web\web\bin\normnfkc.nlp
+C:\Users\ADMIN\Desktop\do_an\web\web\bin\normnfkd.nlp

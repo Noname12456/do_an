@@ -409,6 +409,7 @@ CONSTRAINT fk_PNCT_KHNGS FOREIGN KEY (MASP) REFERENCES SANPHAM(MASP),
 )
 alter table PHIEUNHAPCT
 add GHICHU NVARCHAR(1000)  DEFAULT NULL
+
 create table PHIEUXUAT(
 MAPHIEU int IDENTITY Primary key,
 NGAYXUAT date,
@@ -426,6 +427,11 @@ CONSTRAINT fk_PN_KHNGSXUAT FOREIGN KEY (NGUOISUA) REFERENCES NHANVIEN(MANV),
 CONSTRAINT fk_CN_PHIEUXUATGUI FOREIGN KEY (MACNGUI) REFERENCES CHINHANH(MACN),
 CONSTRAINT fk_CN_PHIEUXUATNHAN FOREIGN KEY (MACNNHAN) REFERENCES CHINHANH(MACN),
 )
+alter table PHIEUXUAT
+add LOAIPHIEU INT  DEFAULT 0
+alter table PHIEUXUAT
+add MAPHIEUNAP INT  DEFAULT 0
+
 create table PHIEUXUATCT(
 MAPHIEU int,
 MASP NCHAR(10),
@@ -604,3 +610,7 @@ where MACNGUI = 'CN001' and NGAYXUAT <= '2022/6/12' and  NGAYXUAT >= '2022/6/01'
 group by masp) as phieu_xuatk on phieu_xuatk.MASP = SANPHAM.MASP
 where macn = 'CN001'
 select sanpham.masp,tensp,sanphamcn.slton,SANPHAM.GIABAN from Sanpham,SANPHAMCN where sanpham.masp = sanphamcn.masp and sanpham.disabled = 0
+
+update PHIEUXUAT set loaiphieu = 1
+
+select * from PHIEUXUAT where loaiphieu = 1

@@ -14,6 +14,7 @@
     NXB nxb = new NXB();
     TACGIA tg = new TACGIA();
     LOAIQUYENOFNHANVIEN quyen = new LOAIQUYENOFNHANVIEN();
+    CHINHANH cn = new CHINHANH();
 }
 <table id="example" class="table" style="margin-top: 15px">
     <thead>
@@ -56,9 +57,15 @@
         </tr>
     </thead>
     <tbody>
+
         @{
+            
             PHIEUNHAP sp = new PHIEUNHAP();
             var menuSp = sp.getData(0);
+            if (!Session["maad"].ToString().Equals("admin"))
+            {
+                menuSp = sp.getData(0, Session["maad"].ToString());
+            }
             var i = 1;
             foreach (var item in menuSp)
             {
@@ -80,7 +87,6 @@
                 <td>@item.NGAYNHANHD
                 </td>
                 <td>@{
-                CHINHANH cn = new CHINHANH();
                 var itemCn = cn.getData3(item.MACN);
                 var tencn = "";
                 foreach (var item2 in itemCn)
@@ -138,7 +144,7 @@
                                 @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "duyet_phieu_nhap") == 1 || Session["maad"].ToString().Equals("admin"))
                                 {
                                     using (Html.BeginForm("DSPHIEUNHAP", "Admin", FormMethod.Post, new { @class = "" }))
-                                {
+                                    {
                                     <a class="dropdown-item">
                                         <button type="submit" class="btn btn-outline-danger" name="Huy" value="@item.MAPHIEU">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -153,7 +159,7 @@
                                             </svg>
                                         </button>
                                     </a>
-                                }
+                                    }
                                 }
                                 @if (quyen.getDataQuyenNV(Session["maad"].ToString(), "cn_phieu_nhap") == 1 || Session["maad"].ToString().Equals("admin"))
                                 {

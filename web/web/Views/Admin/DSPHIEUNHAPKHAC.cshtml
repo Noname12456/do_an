@@ -39,6 +39,10 @@
         @{
             PHIEUNHAP sp = new PHIEUNHAP();
             var menuSp = sp.getData(1);
+            if (!Session["maad"].ToString().Equals("admin"))
+            {
+                menuSp = sp.getData(1, Session["maad"].ToString());
+            }
             var i = 1;
             foreach (var item in menuSp)
             {
